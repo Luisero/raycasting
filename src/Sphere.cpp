@@ -1,6 +1,6 @@
 #include "../include/Sphere.hpp"
+#include "../include/Vector.hpp"
 #include <cmath>
-
 Sphere::Sphere() : Object() { this->radius = 1.0; }
 
 Sphere::Sphere(Point center, float radius) {
@@ -32,4 +32,8 @@ float Sphere::intersect(Ray ray) {
     }
     return -1.0; // Ambas interseções estão atrás do raio
   }
+}
+Vector4 Sphere::getNormal(Point collide) {
+  Vector4 normal = collide - this->center;
+  return normal;
 }

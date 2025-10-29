@@ -7,6 +7,7 @@ CMakeFiles/main.dir/src/Object.cpp.o: /home/luis/Programming/computacao_grafica/
   /home/luis/Programming/computacao_grafica/raycasting/include/Point.hpp \
   /home/luis/Programming/computacao_grafica/raycasting/include/Ray.hpp \
   /home/luis/Programming/computacao_grafica/raycasting/include/Object.hpp \
+  /home/luis/Programming/computacao_grafica/raycasting/include/Vector.hpp \
   /usr/include/stdc-predef.h
 
 CMakeFiles/main.dir/src/Sphere.cpp.o: /home/luis/Programming/computacao_grafica/raycasting/src/Sphere.cpp \
@@ -15,7 +16,9 @@ CMakeFiles/main.dir/src/Sphere.cpp.o: /home/luis/Programming/computacao_grafica/
   /home/luis/Programming/computacao_grafica/raycasting/include/Point.hpp \
   /home/luis/Programming/computacao_grafica/raycasting/include/Ray.hpp \
   /home/luis/Programming/computacao_grafica/raycasting/include/Object.hpp \
+  /home/luis/Programming/computacao_grafica/raycasting/include/Vector.hpp \
   /home/luis/Programming/computacao_grafica/raycasting/include/Sphere.hpp \
+  /home/luis/Programming/computacao_grafica/raycasting/include/Vector.hpp \
   /usr/include/alloca.h \
   /usr/include/bits/atomic_wide_counter.h \
   /usr/include/bits/byteswap.h \
@@ -150,9 +153,19 @@ CMakeFiles/main.dir/src/main.cpp.o: /home/luis/Programming/computacao_grafica/ra
   /usr/include/bits/errno.h \
   /usr/include/bits/floatn-common.h \
   /usr/include/bits/floatn.h \
+  /usr/include/bits/flt-eval-method.h \
+  /usr/include/bits/fp-fast.h \
+  /usr/include/bits/fp-logb.h \
+  /usr/include/bits/iscanonical.h \
   /usr/include/bits/libc-header-start.h \
+  /usr/include/bits/libm-simd-decl-stubs.h \
   /usr/include/bits/locale.h \
   /usr/include/bits/long-double.h \
+  /usr/include/bits/math-vector.h \
+  /usr/include/bits/mathcalls-helper-functions.h \
+  /usr/include/bits/mathcalls-macros.h \
+  /usr/include/bits/mathcalls-narrow.h \
+  /usr/include/bits/mathcalls.h \
   /usr/include/bits/pthread_stack_min-dynamic.h \
   /usr/include/bits/pthreadtypes-arch.h \
   /usr/include/bits/pthreadtypes.h \
@@ -201,11 +214,18 @@ CMakeFiles/main.dir/src/main.cpp.o: /home/luis/Programming/computacao_grafica/ra
   /usr/include/bits/wchar.h \
   /usr/include/bits/wctype-wchar.h \
   /usr/include/bits/wordsize.h \
+  /usr/include/c++/15/algorithm \
   /usr/include/c++/15/array \
+  /usr/include/c++/15/backward/auto_ptr.h \
   /usr/include/c++/15/backward/binders.h \
   /usr/include/c++/15/bit \
+  /usr/include/c++/15/bits/algorithmfwd.h \
+  /usr/include/c++/15/bits/align.h \
   /usr/include/c++/15/bits/alloc_traits.h \
+  /usr/include/c++/15/bits/allocated_ptr.h \
   /usr/include/c++/15/bits/allocator.h \
+  /usr/include/c++/15/bits/atomic_base.h \
+  /usr/include/c++/15/bits/atomic_lockfree_defines.h \
   /usr/include/c++/15/bits/basic_ios.h \
   /usr/include/c++/15/bits/basic_ios.tcc \
   /usr/include/c++/15/bits/basic_string.h \
@@ -246,18 +266,29 @@ CMakeFiles/main.dir/src/main.cpp.o: /home/luis/Programming/computacao_grafica/ra
   /usr/include/c++/15/bits/range_access.h \
   /usr/include/c++/15/bits/refwrap.h \
   /usr/include/c++/15/bits/requires_hosted.h \
+  /usr/include/c++/15/bits/shared_ptr.h \
+  /usr/include/c++/15/bits/shared_ptr_atomic.h \
+  /usr/include/c++/15/bits/shared_ptr_base.h \
+  /usr/include/c++/15/bits/specfun.h \
   /usr/include/c++/15/bits/std_abs.h \
+  /usr/include/c++/15/bits/stl_algo.h \
   /usr/include/c++/15/bits/stl_algobase.h \
   /usr/include/c++/15/bits/stl_construct.h \
   /usr/include/c++/15/bits/stl_function.h \
+  /usr/include/c++/15/bits/stl_heap.h \
   /usr/include/c++/15/bits/stl_iterator.h \
   /usr/include/c++/15/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/15/bits/stl_iterator_base_types.h \
   /usr/include/c++/15/bits/stl_pair.h \
+  /usr/include/c++/15/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/15/bits/stl_tempbuf.h \
+  /usr/include/c++/15/bits/stl_uninitialized.h \
   /usr/include/c++/15/bits/streambuf.tcc \
   /usr/include/c++/15/bits/streambuf_iterator.h \
   /usr/include/c++/15/bits/string_view.tcc \
   /usr/include/c++/15/bits/stringfwd.h \
+  /usr/include/c++/15/bits/uniform_int_dist.h \
+  /usr/include/c++/15/bits/unique_ptr.h \
   /usr/include/c++/15/bits/uses_allocator.h \
   /usr/include/c++/15/bits/uses_allocator_args.h \
   /usr/include/c++/15/bits/utility.h \
@@ -265,6 +296,7 @@ CMakeFiles/main.dir/src/main.cpp.o: /home/luis/Programming/computacao_grafica/ra
   /usr/include/c++/15/cctype \
   /usr/include/c++/15/cerrno \
   /usr/include/c++/15/clocale \
+  /usr/include/c++/15/cmath \
   /usr/include/c++/15/compare \
   /usr/include/c++/15/concepts \
   /usr/include/c++/15/cstddef \
@@ -275,8 +307,10 @@ CMakeFiles/main.dir/src/main.cpp.o: /home/luis/Programming/computacao_grafica/ra
   /usr/include/c++/15/debug/assertions.h \
   /usr/include/c++/15/debug/debug.h \
   /usr/include/c++/15/exception \
+  /usr/include/c++/15/ext/aligned_buffer.h \
   /usr/include/c++/15/ext/alloc_traits.h \
   /usr/include/c++/15/ext/atomicity.h \
+  /usr/include/c++/15/ext/concurrence.h \
   /usr/include/c++/15/ext/numeric_traits.h \
   /usr/include/c++/15/ext/string_conversions.h \
   /usr/include/c++/15/ext/type_traits.h \
@@ -286,14 +320,31 @@ CMakeFiles/main.dir/src/main.cpp.o: /home/luis/Programming/computacao_grafica/ra
   /usr/include/c++/15/iosfwd \
   /usr/include/c++/15/iostream \
   /usr/include/c++/15/istream \
+  /usr/include/c++/15/limits \
+  /usr/include/c++/15/memory \
   /usr/include/c++/15/new \
   /usr/include/c++/15/ostream \
+  /usr/include/c++/15/pstl/execution_defs.h \
+  /usr/include/c++/15/pstl/glue_algorithm_defs.h \
+  /usr/include/c++/15/pstl/glue_memory_defs.h \
   /usr/include/c++/15/pstl/pstl_config.h \
   /usr/include/c++/15/stdexcept \
   /usr/include/c++/15/streambuf \
   /usr/include/c++/15/string \
   /usr/include/c++/15/string_view \
   /usr/include/c++/15/system_error \
+  /usr/include/c++/15/tr1/bessel_function.tcc \
+  /usr/include/c++/15/tr1/beta_function.tcc \
+  /usr/include/c++/15/tr1/ell_integral.tcc \
+  /usr/include/c++/15/tr1/exp_integral.tcc \
+  /usr/include/c++/15/tr1/gamma.tcc \
+  /usr/include/c++/15/tr1/hypergeometric.tcc \
+  /usr/include/c++/15/tr1/legendre_function.tcc \
+  /usr/include/c++/15/tr1/modified_bessel_func.tcc \
+  /usr/include/c++/15/tr1/poly_hermite.tcc \
+  /usr/include/c++/15/tr1/poly_laguerre.tcc \
+  /usr/include/c++/15/tr1/riemann_zeta.tcc \
+  /usr/include/c++/15/tr1/special_function_util.h \
   /usr/include/c++/15/tuple \
   /usr/include/c++/15/type_traits \
   /usr/include/c++/15/typeinfo \
@@ -323,11 +374,15 @@ CMakeFiles/main.dir/src/main.cpp.o: /home/luis/Programming/computacao_grafica/ra
   /usr/include/linux/stddef.h \
   /usr/include/linux/types.h \
   /usr/include/locale.h \
+  /usr/include/math.h \
+  /usr/include/memory.h \
   /usr/include/pthread.h \
   /usr/include/sched.h \
   /usr/include/stdc-predef.h \
   /usr/include/stdio.h \
   /usr/include/stdlib.h \
+  /usr/include/string.h \
+  /usr/include/strings.h \
   /usr/include/sys/cdefs.h \
   /usr/include/sys/select.h \
   /usr/include/sys/single_threaded.h \
@@ -362,6 +417,36 @@ main: /lib64/ld-linux-x86-64.so.2 \
 
 CMakeFiles/main.dir/src/Vector.cpp.o:
 
+/usr/lib/gcc/x86_64-redhat-linux/15/libstdc++.so:
+
+/usr/lib/gcc/x86_64-redhat-linux/15/libgcc.a:
+
+/usr/lib/gcc/x86_64-redhat-linux/15/crtbegin.o:
+
+/usr/lib64/libm.so:
+
+/usr/lib64/crt1.o:
+
+/lib64/libmvec.so.1:
+
+/lib64/libgcc_s.so.1:
+
+/lib64/libc.so.6:
+
+/lib64/ld-linux-x86-64.so.2:
+
+/usr/lib/gcc/x86_64-redhat-linux/15/include/stdarg.h:
+
+/usr/include/wchar.h:
+
+CMakeFiles/main.dir/src/Object.cpp.o:
+
+/usr/include/time.h:
+
+/usr/include/string.h:
+
+/usr/include/pthread.h:
+
 /usr/include/bits/setjmp.h:
 
 /usr/include/c++/15/bits/char_traits.h:
@@ -375,8 +460,6 @@ CMakeFiles/main.dir/src/Vector.cpp.o:
 /usr/include/asm-generic/int-ll64.h:
 
 /usr/include/c++/15/tr1/beta_function.tcc:
-
-/usr/lib/gcc/x86_64-redhat-linux/15/crtbegin.o:
 
 /usr/include/asm-generic/errno.h:
 
@@ -424,17 +507,13 @@ CMakeFiles/main.dir/src/Vector.cpp.o:
 
 /usr/include/c++/15/iostream:
 
-/usr/include/c++/15/bits/charconv.h:
-
-/usr/include/c++/15/tr1/poly_laguerre.tcc:
-
-/usr/include/bits/types/clock_t.h:
-
 /usr/include/bits/mathcalls.h:
 
 /usr/include/bits/types/__fpos_t.h:
 
 /usr/include/features-time64.h:
+
+/usr/include/c++/15/bits/uniform_int_dist.h:
 
 /usr/include/c++/15/tr1/modified_bessel_func.tcc:
 
@@ -500,7 +579,9 @@ CMakeFiles/main.dir/src/Vector.cpp.o:
 
 /usr/include/c++/15/debug/debug.h:
 
-/usr/include/pthread.h:
+/usr/include/sys/single_threaded.h:
+
+/usr/include/c++/15/bits/predefined_ops.h:
 
 /usr/include/bits/types/struct_timespec.h:
 
@@ -509,10 +590,6 @@ CMakeFiles/main.dir/src/Vector.cpp.o:
 /usr/include/c++/15/bits/localefwd.h:
 
 /usr/include/bits/mathcalls-narrow.h:
-
-/usr/include/c++/15/bits/exception_defines.h:
-
-/usr/include/bits/types/timer_t.h:
 
 /usr/include/c++/15/bits/version.h:
 
@@ -524,13 +601,17 @@ CMakeFiles/main.dir/src/Vector.cpp.o:
 
 /usr/include/bits/libc-header-start.h:
 
+/usr/include/wctype.h:
+
+/usr/include/sched.h:
+
+/usr/include/bits/fp-fast.h:
+
 /usr/include/bits/timesize.h:
 
 /usr/include/bits/types/__locale_t.h:
 
 /usr/include/bits/pthreadtypes.h:
-
-/lib64/libmvec.so.1:
 
 /usr/include/c++/15/ext/type_traits.h:
 
@@ -576,6 +657,10 @@ CMakeFiles/main.dir/src/Vector.cpp.o:
 
 /usr/include/asm/errno.h:
 
+/usr/lib/gcc/x86_64-redhat-linux/15/crtend.o:
+
+/usr/include/c++/15/bits/stl_iterator_base_types.h:
+
 /usr/include/bits/types/__sigset_t.h:
 
 /usr/include/c++/15/tr1/special_function_util.h:
@@ -584,7 +669,13 @@ CMakeFiles/main.dir/src/Vector.cpp.o:
 
 /usr/include/c++/15/bits/locale_facets.tcc:
 
+/usr/lib64/libc.so:
+
+/usr/include/ctype.h:
+
 /usr/include/c++/15/bits/stl_iterator.h:
+
+/usr/include/c++/15/memory:
 
 /usr/include/alloca.h:
 
@@ -609,8 +700,6 @@ CMakeFiles/main.dir/src/Vector.cpp.o:
 /usr/include/c++/15/bits/stl_algobase.h:
 
 /usr/include/c++/15/clocale:
-
-/usr/lib64/libm.so:
 
 /usr/include/bits/struct_mutex.h:
 
@@ -666,11 +755,19 @@ CMakeFiles/main.dir/src/Vector.cpp.o:
 
 /usr/include/bits/uintn-identity.h:
 
+/usr/lib64/crti.o:
+
+/usr/include/stdio.h:
+
+/usr/include/bits/wordsize.h:
+
 /usr/include/features.h:
 
 /usr/include/bits/sched.h:
 
 /usr/include/bits/types/__FILE.h:
+
+/usr/include/memory.h:
 
 /usr/include/c++/15/x86_64-redhat-linux/bits/atomic_word.h:
 
@@ -688,6 +785,8 @@ CMakeFiles/main.dir/src/Vector.cpp.o:
 
 /usr/include/bits/types/struct_FILE.h:
 
+/usr/include/c++/15/pstl/glue_memory_defs.h:
+
 /usr/include/bits/wchar.h:
 
 /usr/include/bits/waitstatus.h:
@@ -702,15 +801,43 @@ CMakeFiles/main.dir/src/Vector.cpp.o:
 
 /usr/include/bits/types/wint_t.h:
 
+/usr/include/c++/15/bits/range_access.h:
+
 /usr/include/c++/15/array:
 
 /usr/include/c++/15/tuple:
+
+/usr/include/c++/15/bits/exception_defines.h:
+
+/usr/include/bits/types/timer_t.h:
+
+/usr/include/c++/15/bits/stl_heap.h:
+
+/usr/include/c++/15/backward/auto_ptr.h:
+
+/usr/include/c++/15/bits/algorithmfwd.h:
+
+/usr/include/c++/15/bits/charconv.h:
+
+/usr/include/c++/15/tr1/poly_laguerre.tcc:
+
+/usr/include/bits/types/clock_t.h:
+
+/usr/include/c++/15/pstl/glue_algorithm_defs.h:
+
+/usr/include/c++/15/bits/align.h:
 
 /usr/include/c++/15/bit:
 
 /usr/include/asm-generic/posix_types.h:
 
 /usr/include/c++/15/bits/allocator.h:
+
+/usr/include/c++/15/bits/atomic_base.h:
+
+/usr/include/c++/15/bits/atomic_lockfree_defines.h:
+
+/usr/include/c++/15/bits/memory_resource.h:
 
 /usr/include/c++/15/bits/basic_ios.tcc:
 
@@ -726,6 +853,8 @@ CMakeFiles/main.dir/src/Vector.cpp.o:
 
 /usr/include/c++/15/initializer_list:
 
+/usr/include/c++/15/ext/concurrence.h:
+
 /usr/include/bits/floatn-common.h:
 
 /usr/include/c++/15/bits/exception_ptr.h:
@@ -735,6 +864,8 @@ CMakeFiles/main.dir/src/Vector.cpp.o:
 /usr/include/c++/15/bits/fstream.tcc:
 
 /lib64/libm.so.6:
+
+/usr/include/c++/15/algorithm:
 
 /usr/include/c++/15/bits/hash_bytes.h:
 
@@ -746,13 +877,13 @@ CMakeFiles/main.dir/src/Vector.cpp.o:
 
 /usr/include/linux/errno.h:
 
-/usr/include/wchar.h:
+/usr/lib64/crtn.o:
+
+/usr/include/c++/15/bits/ios_base.h:
+
+/usr/include/c++/15/bits/allocated_ptr.h:
 
 /usr/include/c++/15/bits/istream.tcc:
-
-/usr/include/c++/15/bits/memory_resource.h:
-
-/lib64/ld-linux-x86-64.so.2:
 
 /usr/include/bits/cpu-set.h:
 
@@ -762,25 +893,43 @@ CMakeFiles/main.dir/src/Vector.cpp.o:
 
 /usr/include/c++/15/bits/uses_allocator.h:
 
-/usr/lib64/crt1.o:
-
 CMakeFiles/main.dir/src/main.cpp.o:
 
 /usr/include/c++/15/bits/ostream.tcc:
 
 /usr/include/c++/15/bits/postypes.h:
 
-/usr/include/c++/15/bits/range_access.h:
+/usr/include/c++/15/bits/shared_ptr.h:
+
+/usr/include/c++/15/bits/stringfwd.h:
+
+/usr/include/c++/15/bits/shared_ptr_atomic.h:
+
+/usr/include/c++/15/bits/stl_uninitialized.h:
+
+/usr/include/c++/15/bits/shared_ptr_base.h:
+
+/usr/include/c++/15/bits/stl_algo.h:
+
+/usr/lib/gcc/x86_64-redhat-linux/15/libgcc_s.so:
+
+/usr/include/c++/15/bits/cxxabi_forced.h:
+
+/usr/include/c++/15/compare:
 
 /usr/include/c++/15/bits/ptr_traits.h:
 
 /usr/include/c++/15/bits/stl_construct.h:
 
+/usr/include/c++/15/bits/stl_raw_storage_iter.h:
+
+/usr/include/c++/15/bits/stl_tempbuf.h:
+
 /usr/include/bits/types/struct_tm.h:
 
 /usr/include/c++/15/bits/string_view.tcc:
 
-/usr/include/c++/15/bits/stringfwd.h:
+/usr/include/c++/15/bits/unique_ptr.h:
 
 /usr/include/c++/15/bits/uses_allocator_args.h:
 
@@ -794,6 +943,8 @@ CMakeFiles/main.dir/src/main.cpp.o:
 
 /usr/include/c++/15/exception:
 
+/usr/include/c++/15/ext/aligned_buffer.h:
+
 /usr/include/c++/15/ext/alloc_traits.h:
 
 /usr/include/linux/types.h:
@@ -802,9 +953,13 @@ CMakeFiles/main.dir/src/main.cpp.o:
 
 CMakeFiles/main.dir/src/Sphere.cpp.o:
 
+/usr/include/strings.h:
+
 /usr/include/c++/15/bits/exception.h:
 
 /usr/include/c++/15/ostream:
+
+/usr/include/c++/15/pstl/execution_defs.h:
 
 /usr/include/c++/15/stdexcept:
 
@@ -835,51 +990,3 @@ CMakeFiles/main.dir/src/Sphere.cpp.o:
 /usr/include/linux/stddef.h:
 
 /usr/include/locale.h:
-
-/usr/include/wctype.h:
-
-/usr/include/bits/fp-fast.h:
-
-/usr/include/sched.h:
-
-/usr/include/c++/15/bits/predefined_ops.h:
-
-/usr/include/sys/single_threaded.h:
-
-CMakeFiles/main.dir/src/Object.cpp.o:
-
-/usr/include/time.h:
-
-/usr/lib/gcc/x86_64-redhat-linux/15/include/stdarg.h:
-
-/lib64/libc.so.6:
-
-/lib64/libgcc_s.so.1:
-
-/usr/include/bits/wordsize.h:
-
-/usr/include/stdio.h:
-
-/usr/lib64/crti.o:
-
-/usr/include/c++/15/bits/ios_base.h:
-
-/usr/lib64/crtn.o:
-
-/usr/include/ctype.h:
-
-/usr/lib64/libc.so:
-
-/usr/include/c++/15/bits/stl_iterator_base_types.h:
-
-/usr/lib/gcc/x86_64-redhat-linux/15/crtend.o:
-
-/usr/lib/gcc/x86_64-redhat-linux/15/libgcc.a:
-
-/usr/include/c++/15/bits/cxxabi_forced.h:
-
-/usr/include/c++/15/compare:
-
-/usr/lib/gcc/x86_64-redhat-linux/15/libgcc_s.so:
-
-/usr/lib/gcc/x86_64-redhat-linux/15/libstdc++.so:

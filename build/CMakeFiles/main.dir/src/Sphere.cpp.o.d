@@ -7,6 +7,9 @@ CMakeFiles/main.dir/src/Sphere.cpp.o: \
  /home/luis/Programming/computacao_grafica/raycasting/src/../include/./././Vector.hpp \
  /home/luis/Programming/computacao_grafica/raycasting/src/../include/././Ray.hpp \
  /home/luis/Programming/computacao_grafica/raycasting/src/../include/./././Point.hpp \
+ /home/luis/Programming/computacao_grafica/raycasting/src/../include/./Vector.hpp \
+ /home/luis/Programming/computacao_grafica/raycasting/src/../include/Vector.hpp \
+ /home/luis/Programming/computacao_grafica/raycasting/src/../include/Vector.hpp \
  /usr/include/c++/15/cmath /usr/include/c++/15/bits/requires_hosted.h \
  /usr/include/c++/15/x86_64-redhat-linux/bits/c++config.h \
  /usr/include/bits/wordsize.h \
