@@ -1,10 +1,11 @@
 #ifndef OBJECT
-#include "./Point.hpp"
 #define OBJECT
+#include "./Point.hpp"
+#include "./Ray.hpp"
 class Object {
 public:
   Point center;
   Object();
-  virtual intersect(Ray ray);
+  virtual float intersect(Ray ray) = 0;
 };
-#endif // !OBJECT
+#endif
