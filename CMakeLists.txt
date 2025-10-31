@@ -8,5 +8,6 @@ add_executable(main
         src/Object.cpp
         src/Color.cpp
         src/Material.cpp
+        src/Plane.cpp
       )
 target_include_directories(main PRIVATE include)

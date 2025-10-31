@@ -3,6 +3,7 @@
 #include "../include/Ray.hpp"
 #include "../include/Sphere.hpp"
 #include "../include/Vector.hpp"
+#include "../include/Plane.hpp"
 #include <algorithm>
 #include <array>
 #include <cmath>
@@ -13,14 +14,14 @@
 #include <memory>
 
 const float wJanela = 2.f, hJanela = 1.5f;
-const int nCol = 2.f * 400, nLin = 1.5 * 400;
+const int nCol = 2.f * 1920, nLin = 1.5 * 1920;
 float Dx = wJanela / nCol;
 float Dy = hJanela / nLin;
 float dJanela = 10;
 
 Point posicaoObservador(0, 0, 0, 1);
 
-Point luz_pos(5.0f, 5.0f, -5.0f, 1.0f);
+Point luz_pos(2.f, 2.0f, -dJanela/1.5, 1.0f);
 Color luz_intensidade(255, 255, 255);       // Luz branca
 Color luz_ambiente_intensidade(25, 25, 25); // Luz ambiente fraca
 
@@ -38,16 +39,30 @@ int main() {
                        Color(200, 100, 50),  // Kd (cor principal)
                        Color(255, 255, 255), // Ks (brilho branco)
                        128.0f);
+  Material mat_chao(Color(0, 30, 00),     // Ka (ambiente)
+                       Color(35, 166, 12), // Kd (difuso cinza)
+                       Color(255, 255, 255),    // Ks (pouco brilho)
+                       255.f);               // shininess
+              
   float rEsfera = .2f;
   Point defaultCenter(0.f, 0.f, -dJanela + rEsfera, 1.f);
-  std::array<std::unique_ptr<Object>, 10> spheres = {
+  std::array<std::unique_ptr<Object>, 10> objects = {
       std::make_unique<Sphere>(defaultCenter, rEsfera, mat_laranja)};
 
   for (int i = 1; i < 10; i++) {
-    spheres[i] = std::make_unique<Sphere>(
-        defaultCenter + Vector4(-.4f / i, .4f, -0.5f, 0.f), rEsfera / i,
-        mat_laranja);
+   Material mat(
+      Color(10,10,10),
+      Color(i*10, i*20,50),
+      Color(255,255,255),
+      5.f
+   );
+    objects[i] = std::make_unique<Sphere>(
+        defaultCenter + Vector4(i/5 , .4f, -i, 0.f), rEsfera/3,
+        mat);
   }
+  Point ponto_do_chao(0.f, -rEsfera * 2.f, 0.f, 1.f); // Ponto no chão
+  Vector4 normal_do_chao(0.f, 1.f, 0.f, 0.f);      // Apontando p/ cima
+  objects[9] = std::make_unique<Plane>(ponto_do_chao, normal_do_chao, mat_chao);
 
   if (image.is_open()) {
     image << "P3\n";
@@ -72,7 +87,7 @@ int main() {
         float t_mais_proximo = -1.0f;
         Object *obj_mais_proximo = nullptr; // <-- PRECISAMOS GUARDAR O OBJETO
         // 2. Faça o loop por todos os objetos no array
-        for (const auto &object : spheres) {
+        for (const auto &object : objects) {
 
           // Pule se o slot do array estiver vazio (embora você tenha preenchido
           // todos)
