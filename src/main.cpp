@@ -1,3 +1,4 @@
+#include "../include/Color.hpp"
 #include "../include/Point.hpp"
 #include "../include/Ray.hpp"
 #include "../include/Sphere.hpp"
@@ -19,6 +20,10 @@ float dJanela = 10;
 
 Point posicaoObservador(0, 0, 0, 1);
 
+Point luz_pos(5.0f, 5.0f, -5.0f, 1.0f);
+Color luz_intensidade(255, 255, 255);       // Luz branca
+Color luz_ambiente_intensidade(25, 25, 25); // Luz ambiente fraca
+
 void convertDisplayParaJanela(int display_x, int display_y, float &ndc_x,
                               float &ndc_y) {
   // Adiciona 0.5 para obter o centro do pixel
@@ -29,15 +34,19 @@ void convertDisplayParaJanela(int display_x, int display_y, float &ndc_x,
 int main() {
 
   std::ofstream image("image.ppm");
-
+  Material mat_laranja(Color(10, 5, 2),      // Ka (ambiente escuro)
+                       Color(200, 100, 50),  // Kd (cor principal)
+                       Color(255, 255, 255), // Ks (brilho branco)
+                       128.0f);
   float rEsfera = .2f;
   Point defaultCenter(0.f, 0.f, -dJanela + rEsfera, 1.f);
   std::array<std::unique_ptr<Object>, 10> spheres = {
-      std::make_unique<Sphere>(defaultCenter, rEsfera)};
+      std::make_unique<Sphere>(defaultCenter, rEsfera, mat_laranja)};
 
   for (int i = 1; i < 10; i++) {
     spheres[i] = std::make_unique<Sphere>(
-        defaultCenter + Vector4(-.4f / i, .4f, -0.5f, 0.f), rEsfera / i);
+        defaultCenter + Vector4(-.4f / i, .4f, -0.5f, 0.f), rEsfera / i,
+        mat_laranja);
   }
 
   if (image.is_open()) {
@@ -61,7 +70,7 @@ int main() {
 
         // 1. Inicie a distância mais próxima como "sem colisão" (-1.0f).
         float t_mais_proximo = -1.0f;
-
+        Object *obj_mais_proximo = nullptr; // <-- PRECISAMOS GUARDAR O OBJETO
         // 2. Faça o loop por todos os objetos no array
         for (const auto &object : spheres) {
 
@@ -82,6 +91,8 @@ int main() {
               // -1) OU se a colisão atual (t_atual) é mais próxima que a
               // anterior, atualize t_mais_proximo.
               t_mais_proximo = t_atual;
+              obj_mais_proximo =
+                  object.get(); // <-- Salva o ponteiro p/ o objeto
             }
           }
         }
@@ -92,8 +103,36 @@ int main() {
         } else {
           // (Opcional, mas recomendado: calcule o ponto de colisão correto)
           // Point collidePoint = ray.origin + (ray.dir * t_mais_proximo);
+          Point p = ray.origin + (ray.dir * t_mais_proximo);
+          Vector4 N = obj_mais_proximo->getNormal(p);
+          N.normalize();
+          Material mat = obj_mais_proximo->material;
 
-          image << "200 100 50 "; // Cor do objeto (colisão!)
+          Color cor_ambient = mat.Ka * luz_ambiente_intensidade;
+
+          Vector4 L = (luz_pos - p);
+          L.normalize();
+          Vector4 V = (posicaoObservador - p);
+          V.normalize();
+          Vector4 R = (N * (2.0f * N.dot(L))) - L;
+
+          float fator_difuso = std::max(0.0f, N.dot(L));
+          Color cor_difusa(0, 0, 0);
+          if (fator_difuso > 0) {
+            cor_difusa = (mat.Kd * luz_intensidade) * fator_difuso;
+          }
+
+          float fator_especular =
+              std::pow(std::max(0.0f, V.dot(R)), mat.shininess);
+          Color cor_especular(0, 0, 0);
+          if (fator_especular > 0) {
+            cor_especular = (mat.Ks * luz_intensidade) * fator_especular;
+          }
+          Color cor_final = cor_ambient + cor_difusa + cor_especular;
+          cor_final.clamp(); // Garante que não passa de 255
+
+          image << cor_final.r << " " << cor_final.g << " " << cor_final.b
+                << " ";
         }
       }
       image << "\n";

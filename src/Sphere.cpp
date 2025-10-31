@@ -1,11 +1,16 @@
 #include "../include/Sphere.hpp"
+#include "../include/Material.hpp"
 #include "../include/Vector.hpp"
 #include <cmath>
-Sphere::Sphere() : Object() { this->radius = 1.0; }
+Sphere::Sphere() : Object() {
+  this->radius = 1.0;
+  this->material = Material();
+}
 
-Sphere::Sphere(Point center, float radius) {
+Sphere::Sphere(Point center, float radius, Material material) {
   this->center = center;
   this->radius = radius;
+  this->material = material;
 }
 
 float Sphere::intersect(Ray ray) {
@@ -35,5 +40,6 @@ float Sphere::intersect(Ray ray) {
 }
 Vector4 Sphere::getNormal(Point collide) {
   Vector4 normal = collide - this->center;
+  normal.normalize();
   return normal;
 }

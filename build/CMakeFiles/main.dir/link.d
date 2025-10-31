@@ -6,6 +6,8 @@ main: \
   CMakeFiles/main.dir/src/Vector.cpp.o \
   CMakeFiles/main.dir/src/Sphere.cpp.o \
   CMakeFiles/main.dir/src/Object.cpp.o \
+  CMakeFiles/main.dir/src/Color.cpp.o \
+  CMakeFiles/main.dir/src/Material.cpp.o \
   /usr/lib/gcc/x86_64-redhat-linux/15/libstdc++.so \
   /usr/lib/gcc/x86_64-redhat-linux/15/../../../../lib64/libm.so \
   /usr/lib/gcc/x86_64-redhat-linux/15/../../../../lib64/libm.so \
@@ -47,6 +49,10 @@ CMakeFiles/main.dir/src/Vector.cpp.o:
 CMakeFiles/main.dir/src/Sphere.cpp.o:
 
 CMakeFiles/main.dir/src/Object.cpp.o:
+
+CMakeFiles/main.dir/src/Color.cpp.o:
+
+CMakeFiles/main.dir/src/Material.cpp.o:
 
 /usr/lib/gcc/x86_64-redhat-linux/15/libstdc++.so:
 

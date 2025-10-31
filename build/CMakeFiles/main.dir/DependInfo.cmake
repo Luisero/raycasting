@@ -8,6 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/luis/Programming/computacao_grafica/raycasting/src/Color.cpp" "CMakeFiles/main.dir/src/Color.cpp.o" "gcc" "CMakeFiles/main.dir/src/Color.cpp.o.d"
+  "/home/luis/Programming/computacao_grafica/raycasting/src/Material.cpp" "CMakeFiles/main.dir/src/Material.cpp.o" "gcc" "CMakeFiles/main.dir/src/Material.cpp.o.d"
   "/home/luis/Programming/computacao_grafica/raycasting/src/Object.cpp" "CMakeFiles/main.dir/src/Object.cpp.o" "gcc" "CMakeFiles/main.dir/src/Object.cpp.o.d"
   "/home/luis/Programming/computacao_grafica/raycasting/src/Sphere.cpp" "CMakeFiles/main.dir/src/Sphere.cpp.o" "gcc" "CMakeFiles/main.dir/src/Sphere.cpp.o.d"
   "/home/luis/Programming/computacao_grafica/raycasting/src/Vector.cpp" "CMakeFiles/main.dir/src/Vector.cpp.o" "gcc" "CMakeFiles/main.dir/src/Vector.cpp.o.d"

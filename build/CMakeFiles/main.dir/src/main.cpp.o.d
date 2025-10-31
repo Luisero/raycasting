@@ -1,17 +1,7 @@
 CMakeFiles/main.dir/src/main.cpp.o: \
  /home/luis/Programming/computacao_grafica/raycasting/src/main.cpp \
  /usr/include/stdc-predef.h \
- /home/luis/Programming/computacao_grafica/raycasting/src/../include/Point.hpp \
- /home/luis/Programming/computacao_grafica/raycasting/src/../include/./Vector.hpp \
- /home/luis/Programming/computacao_grafica/raycasting/src/../include/Ray.hpp \
- /home/luis/Programming/computacao_grafica/raycasting/src/../include/./Point.hpp \
- /home/luis/Programming/computacao_grafica/raycasting/src/../include/Sphere.hpp \
- /home/luis/Programming/computacao_grafica/raycasting/src/../include/./Object.hpp \
- /home/luis/Programming/computacao_grafica/raycasting/src/../include/././Point.hpp \
- /home/luis/Programming/computacao_grafica/raycasting/src/../include/././Ray.hpp \
- /home/luis/Programming/computacao_grafica/raycasting/src/../include/./Vector.hpp \
- /home/luis/Programming/computacao_grafica/raycasting/src/../include/Vector.hpp \
- /home/luis/Programming/computacao_grafica/raycasting/src/../include/Vector.hpp \
+ /home/luis/Programming/computacao_grafica/raycasting/src/../include/Color.hpp \
  /usr/include/c++/15/algorithm /usr/include/c++/15/bits/stl_algobase.h \
  /usr/include/c++/15/x86_64-redhat-linux/bits/c++config.h \
  /usr/include/bits/wordsize.h \
@@ -66,8 +56,9 @@ CMakeFiles/main.dir/src/main.cpp.o: \
  /usr/include/bits/struct_rwlock.h /usr/include/alloca.h \
  /usr/include/bits/stdlib-float.h /usr/include/c++/15/bits/std_abs.h \
  /usr/include/c++/15/pstl/glue_algorithm_defs.h \
- /usr/include/c++/15/pstl/execution_defs.h /usr/include/c++/15/array \
- /usr/include/c++/15/compare /usr/include/c++/15/bits/range_access.h \
+ /usr/include/c++/15/pstl/execution_defs.h \
+ /home/luis/Programming/computacao_grafica/raycasting/src/../include/Point.hpp \
+ /home/luis/Programming/computacao_grafica/raycasting/src/../include/./Vector.hpp \
  /usr/include/c++/15/cmath /usr/include/c++/15/bits/requires_hosted.h \
  /usr/include/math.h /usr/include/bits/math-vector.h \
  /usr/include/bits/libm-simd-decl-stubs.h \
@@ -87,7 +78,21 @@ CMakeFiles/main.dir/src/main.cpp.o: \
  /usr/include/c++/15/tr1/modified_bessel_func.tcc \
  /usr/include/c++/15/tr1/poly_hermite.tcc \
  /usr/include/c++/15/tr1/poly_laguerre.tcc \
- /usr/include/c++/15/tr1/riemann_zeta.tcc /usr/include/c++/15/fstream \
+ /usr/include/c++/15/tr1/riemann_zeta.tcc \
+ /home/luis/Programming/computacao_grafica/raycasting/src/../include/Ray.hpp \
+ /home/luis/Programming/computacao_grafica/raycasting/src/../include/./Point.hpp \
+ /home/luis/Programming/computacao_grafica/raycasting/src/../include/Sphere.hpp \
+ /home/luis/Programming/computacao_grafica/raycasting/src/../include/./Material.hpp \
+ /home/luis/Programming/computacao_grafica/raycasting/src/../include/./Color.hpp \
+ /home/luis/Programming/computacao_grafica/raycasting/src/../include/./Object.hpp \
+ /home/luis/Programming/computacao_grafica/raycasting/src/../include/././Material.hpp \
+ /home/luis/Programming/computacao_grafica/raycasting/src/../include/././Point.hpp \
+ /home/luis/Programming/computacao_grafica/raycasting/src/../include/././Ray.hpp \
+ /home/luis/Programming/computacao_grafica/raycasting/src/../include/./Vector.hpp \
+ /home/luis/Programming/computacao_grafica/raycasting/src/../include/Vector.hpp \
+ /home/luis/Programming/computacao_grafica/raycasting/src/../include/Vector.hpp \
+ /usr/include/c++/15/array /usr/include/c++/15/compare \
+ /usr/include/c++/15/bits/range_access.h /usr/include/c++/15/fstream \
  /usr/include/c++/15/istream /usr/include/c++/15/ios \
  /usr/include/c++/15/iosfwd /usr/include/c++/15/bits/stringfwd.h \
  /usr/include/c++/15/bits/memoryfwd.h /usr/include/c++/15/bits/postypes.h \

@@ -6,5 +6,7 @@ add_executable(main
         src/Vector.cpp
         src/Sphere.cpp
         src/Object.cpp
+        src/Color.cpp
+        src/Material.cpp
       )
 target_include_directories(main PRIVATE include)
