@@ -177,6 +177,30 @@ src/Material.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/Material.cpp.s
 .PHONY : src/Material.cpp.s
 
+src/MirrorSphere.o: src/MirrorSphere.cpp.o
+.PHONY : src/MirrorSphere.o
+
+# target to build an object file
+src/MirrorSphere.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/MirrorSphere.cpp.o
+.PHONY : src/MirrorSphere.cpp.o
+
+src/MirrorSphere.i: src/MirrorSphere.cpp.i
+.PHONY : src/MirrorSphere.i
+
+# target to preprocess a source file
+src/MirrorSphere.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/MirrorSphere.cpp.i
+.PHONY : src/MirrorSphere.cpp.i
+
+src/MirrorSphere.s: src/MirrorSphere.cpp.s
+.PHONY : src/MirrorSphere.s
+
+# target to generate assembly for a file
+src/MirrorSphere.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/MirrorSphere.cpp.s
+.PHONY : src/MirrorSphere.cpp.s
+
 src/Object.o: src/Object.cpp.o
 .PHONY : src/Object.o
 
@@ -312,6 +336,9 @@ help:
 	@echo "... src/Material.o"
 	@echo "... src/Material.i"
 	@echo "... src/Material.s"
+	@echo "... src/MirrorSphere.o"
+	@echo "... src/MirrorSphere.i"
+	@echo "... src/MirrorSphere.s"
 	@echo "... src/Object.o"
 	@echo "... src/Object.i"
 	@echo "... src/Object.s"

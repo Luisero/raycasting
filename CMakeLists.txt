@@ -9,5 +9,6 @@ add_executable(main
         src/Color.cpp
         src/Material.cpp
         src/Plane.cpp
+        src/MirrorSphere.cpp
       )
 target_include_directories(main PRIVATE include)

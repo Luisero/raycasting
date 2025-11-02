@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/fernanda/Programming/computacao_grafica/raycasting/src/Color.cpp" "CMakeFiles/main.dir/src/Color.cpp.o" "gcc" "CMakeFiles/main.dir/src/Color.cpp.o.d"
   "/home/fernanda/Programming/computacao_grafica/raycasting/src/Material.cpp" "CMakeFiles/main.dir/src/Material.cpp.o" "gcc" "CMakeFiles/main.dir/src/Material.cpp.o.d"
+  "/home/fernanda/Programming/computacao_grafica/raycasting/src/MirrorSphere.cpp" "CMakeFiles/main.dir/src/MirrorSphere.cpp.o" "gcc" "CMakeFiles/main.dir/src/MirrorSphere.cpp.o.d"
   "/home/fernanda/Programming/computacao_grafica/raycasting/src/Object.cpp" "CMakeFiles/main.dir/src/Object.cpp.o" "gcc" "CMakeFiles/main.dir/src/Object.cpp.o.d"
   "/home/fernanda/Programming/computacao_grafica/raycasting/src/Plane.cpp" "CMakeFiles/main.dir/src/Plane.cpp.o" "gcc" "CMakeFiles/main.dir/src/Plane.cpp.o.d"
   "/home/fernanda/Programming/computacao_grafica/raycasting/src/Sphere.cpp" "CMakeFiles/main.dir/src/Sphere.cpp.o" "gcc" "CMakeFiles/main.dir/src/Sphere.cpp.o.d"

@@ -140,6 +140,8 @@ CMakeFiles/main.dir/src/main.cpp.o: \
  /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/Plane.hpp \
  /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/Point.hpp \
  /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/Material.hpp \
+ /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/MirrorSphere.hpp \
+ /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/Sphere.hpp \
  /usr/include/c++/11/fstream /usr/include/c++/11/istream \
  /usr/include/c++/11/ios /usr/include/c++/11/iosfwd \
  /usr/include/c++/11/bits/stringfwd.h /usr/include/c++/11/bits/postypes.h \

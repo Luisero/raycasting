@@ -4,8 +4,9 @@
 #include "../include/Sphere.hpp"
 #include "../include/Vector.hpp"
 #include "../include/Plane.hpp"
+#include "../include/MirrorSphere.hpp"
 #include <algorithm>
-#include <array>
+#include <vector>
 #include <cmath>
 #include <cstdlib>
 #include <fstream>
@@ -13,162 +14,264 @@
 #include <memory.h>
 #include <memory>
 
-const float wJanela = 2.f, hJanela = 1.5f;
-const int nCol = 2.f * 300, nLin = 1.5 * 300;
-float Dx = wJanela / nCol;
-float Dy = hJanela / nLin;
-float dJanela = 10;
+// --- CONSTANTS ---
+const float windowWidth = 2.f, windowHeight = 1.5f;
+const int numCols = 2.f * 300, numRows = 1.5 * 300;
+float Dx = windowWidth / numCols;
+float Dy = windowHeight / numRows;
+float viewplaneDistance = 10;
+const int FRAMES_AMOUNT = 30;
 
-Point posicaoObservador(0, 0, 0, 1);
+Point observerPosition(0, 0, 0, 1);
 
-Point luz_pos(4.f, 4.0f, -dJanela  , 1.0f);
-Color luz_intensidade(255, 255, 255);       // Luz branca
-Color luz_ambiente_intensidade(25, 25, 25); // Luz ambiente fraca
+Point lightPosition(-1.f, 4.0f, -viewplaneDistance, 1.0f);
+Color lightIntensity(255, 255, 255);
+Color ambientLightIntensity(25, 25, 25);
 
-void convertDisplayParaJanela(int display_x, int display_y, float &ndc_x,
-                              float &ndc_y) {
-  // Adiciona 0.5 para obter o centro do pixel
-  ndc_x = -wJanela / 2.0f + Dx / 2.0f + display_x * Dx;
-  ndc_y = hJanela / 2.0f - Dy / 2.0f - display_y * Dy;
+void convertDisplayToWindow(int display_x, int display_y, float &ndc_x,
+                              float &ndc_y)
+{
+  // Adds 0.5 to get the center of the pixel
+  ndc_x = -windowWidth / 2.0f + Dx / 2.0f + display_x * Dx;
+  ndc_y = windowHeight / 2.0f - Dy / 2.0f - display_y * Dy;
 }
 
-int main() {
-  float time = 0;
-  Material mat_laranja(Color(10, 5, 2),      // Ka (ambiente escuro)
-  Color(200, 100, 50),  // Kd (cor principal)
-  Color(255, 255, 255), // Ks (brilho branco)
-  128.0f);
-  Material mat_chao(Color(20, 50, 20),     // Ka (ambiente)
-  Color(35, 196, 12), // Kd (difuso cinza)
-  Color(255, 255, 255),    // Ks (pouco brilho)
-  255.f);               // shininess
-  
-  float rEsfera = .2f;
-  Point defaultCenter(0.f, 0.f, -dJanela + rEsfera, 1.f);
-  std::array<std::unique_ptr<Object>, 10> objects = {
-    std::make_unique<Sphere>(defaultCenter, rEsfera, mat_laranja)};
-    
-    for (int i = 1; i < 10; i++) {
-      Material mat(
-        Color(20,10,10),
-        Color(i*10, i*20,50),
-        Color(255,255,255),
-        128.f
-      );
-      objects[i] = std::make_unique<Sphere>(
-        defaultCenter + Vector4(i/4 , 0.f, -i*1.8, 0.f), rEsfera,
-        mat);
-      }
-      Point ponto_do_chao(0.f, -rEsfera * 2.f, 0.f, 1.f); // Ponto no chão
-      Vector4 normal_do_chao(0.f, 1.f, 0.f, 0.f);      // Apontando p/ cima
-      objects[9] = std::make_unique<Plane>(ponto_do_chao, normal_do_chao, mat_chao);
-  for (int i = 0; i < 30*20  ; i++)
+Object *getIntersectedObject(Ray ray,
+                             const std::vector<std::unique_ptr<Object>> &objects,
+                             float &closest_t)
+{
+  closest_t = -1.0f;
+  Object *closestObject = nullptr;
+
+  for (const auto &object : objects)
   {
-    time +=0.1;
-    /* code */
+    if (object == nullptr)
+    {
+      continue;
+    }
+    float current_t = object->intersect(ray);
+
+    if (current_t > 0.001f) // Epsilon to avoid self-intersection
+    {
+      if (closest_t == -1.0f || current_t < closest_t)
+      {
+        closest_t = current_t;
+        closestObject = object.get();
+      }
+    }
+  }
+  return closestObject;
+}
+
+int main()
+{
+  float time = 0;
+  // --- MATERIALS ---
+  Material matOrange(Color(10, 5, 2),
+                       Color(200, 100, 50),
+                       Color(255, 255, 255),
+                       128.0f);
+  Material matPink(Color(10, 5, 2),
+                       Color(255,141,161),
+                       Color(255, 255, 255),
+                       128.0f);
+  Material matRed(Color(10, 5, 2),
+                       Color(255,10,20),
+                       Color(255, 255, 255),
+                       128.0f);
+  Material matFloor(Color(20, 50, 20),
+                    Color(35, 196, 12),
+                    Color(255, 255, 255),
+                    255.f);
+  Material matWall(Color(20, 20, 50),
+                   Color(35, 100, 196),
+                   Color(255, 255, 255),
+                   255.f);
+  Material matMirror(Color(0, 0, 0),
+                     Color(0, 0, 0),
+                     Color(0, 0, 0),
+                     128.f);
+
+  float sphereRadius = .2f;
+  Point defaultCenter(0.f, 0.f, -viewplaneDistance + sphereRadius, 1.f);
+
+  std::vector<std::unique_ptr<Object>> objects;
+
+  // --- SCENE OBJECTS ---
+  // 1. Orange Sphere
+  objects.push_back(std::make_unique<Sphere>(defaultCenter, sphereRadius, matOrange));
+  
+  // 2. Pink Sphere
+  objects.push_back(std::make_unique<Sphere>(
+      defaultCenter + Vector4(0.5f, 0.2f, -1.0f, 0.f),
+      sphereRadius,
+      matPink));
+  
+  // 3. Red Sphere
+  objects.push_back(std::make_unique<Sphere>(
+        defaultCenter + Vector4(-0.1f, 0.2f, viewplaneDistance *2, 0.f),
+        sphereRadius*10,
+        matRed));
+  
+  // 4. Mirror Sphere
+  objects.push_back(std::make_unique<MirrorSphere>(
+      defaultCenter + Vector4(-0.5, .5f, 0.f, 0.f), sphereRadius,
+      matMirror));
+
+  // 5. Floor
+  Point floorPoint(0.f, -sphereRadius * 2.f, 0.f, 1.f);
+  Vector4 floorNormal(0.f, 1.f, 0.f, 0.f);
+  objects.push_back(std::make_unique<Plane>(floorPoint, floorNormal, matFloor));
+
+  // 6. Wall
+  Point wallPoint(0.f, 0.f, -viewplaneDistance * 3, 1.f);
+  Vector4 wallNormal(0, 0, 2, 0);
+  objects.push_back(std::make_unique<Plane>(wallPoint, wallNormal, matWall));
+
+
+  // --- MAIN LOOP ---
+  for (int i = 0; i < FRAMES_AMOUNT; i++)
+  {
+    time += 0.1;
+    
     std::string frametitle = "image";
     frametitle.append(std::to_string(i));
     frametitle.append(".ppm");
     std::ofstream image(frametitle);
-    if (image.is_open()) {
+
+    if (image.is_open())
+    {
       image << "P3\n";
-      image << nCol << " " << nLin << "\n";
+      image << numCols << " " << numRows << "\n";
       image << 255 << "\n";
-      for (int i = 0; i < 8; i++)
+
+      // --- Animation Step ---
+      for (int j = 0; j < objects.size(); j++)
       {
-        Object &obj = *objects[i];
-        
-        obj.center.y +=sin(time+ i)/100;
-        luz_pos.y -= 0.001f;
-        luz_pos.x -= 0.01f;
-      }
-      
-      
-      for (int l = 0; l < nLin; l++) {
-        for (int c = 0; c < nCol; c++) {
-          float x, y;
-          
-          convertDisplayParaJanela(c, l, x, y);
-          Vector4 d(x - posicaoObservador.x, y - posicaoObservador.y, -dJanela,
-                  0);
-                  
-                  // É uma boa prática normalizar a direção
-                  
-                  Ray ray(d, posicaoObservador);
-                  
-                  // --- LÓGICA DE INTERSEÇÃO CORRIGIDA ---
-                  
-                  // 1. Inicie a distância mais próxima como "sem colisão" (-1.0f).
-                  float t_mais_proximo = -1.0f;
-                  Object *obj_mais_proximo = nullptr; // <-- PRECISAMOS GUARDAR O OBJETO
-                  // 2. Faça o loop por todos os objetos no array
-                  for (const auto &object : objects) {
+        if (objects[j] == nullptr)
+        {
+          continue;
+        }
 
-                    // Pule se o slot do array estiver vazio (embora você tenha preenchido
-                    // todos)
-                    if (object == nullptr) {
-                      continue;
-                    }
-                    
-                    // 3. Chame intersect E armazene o resultado
-                    float t_atual = object->intersect(ray);
-                    
-                    // 4. Verifique se esta colisão é válida E é a mais próxima até agora
-                    if (t_atual > 0.001f) { // (t > 0.001f para evitar auto-colisão)
-                      
-                      if (t_mais_proximo == -1.0f || t_atual < t_mais_proximo) {
-              // Se esta é a primeira colisão que encontramos (t_mais_proximo ==
-              // -1) OU se a colisão atual (t_atual) é mais próxima que a
-              // anterior, atualize t_mais_proximo.
-              t_mais_proximo = t_atual;
-              obj_mais_proximo =
-                  object.get(); // <-- Salva o ponteiro p/ o objeto
-                }
-              }
-            }
-
-        // 5. Verifique o resultado final (t_mais_proximo)
-        if (t_mais_proximo == -1.0f) {
-          image << "10 50 200 "; // Cor de fundo (sem colisão)
-        } else {
-          // (Opcional, mas recomendado: calcule o ponto de colisão correto)
-          // Point collidePoint = ray.origin + (ray.dir * t_mais_proximo);
-          Point p = ray.origin + (ray.dir * t_mais_proximo);
-          Vector4 N = obj_mais_proximo->getNormal(p);
-          N.normalize();
-          Material mat = obj_mais_proximo->material;
-          
-          Color cor_ambient = mat.Ka * luz_ambiente_intensidade;
-          
-          Vector4 L = (luz_pos - p);
-          L.normalize();
-          Vector4 V = (posicaoObservador - p);
-          V.normalize();
-          Vector4 R = (N * (2.0f * N.dot(L))) - L;
-          
-          float fator_difuso = std::max(0.0f, N.dot(L));
-          Color cor_difusa(0, 0, 0);
-          if (fator_difuso > 0) {
-            cor_difusa = (mat.Kd * luz_intensidade) * fator_difuso;
-          }
-          
-          float fator_especular =
-          std::pow(std::max(0.0f, V.dot(R)), mat.shininess);
-          Color cor_especular(0, 0, 0);
-          if (fator_especular > 0) {
-            cor_especular = (mat.Ks * luz_intensidade) * fator_especular;
-          }
-          Color cor_final = cor_ambient + cor_difusa + cor_especular;
-          cor_final.clamp(); // Garante que não passa de 255
-          
-          image << cor_final.r << " " << cor_final.g << " " << cor_final.b
-                << " ";
+        // Animate only objects that are Spheres (or derived from Sphere)
+        if (Sphere *sphere = dynamic_cast<Sphere *>(objects[j].get()))
+        {
+          sphere->center.y += sin(time + j) / 100;
+          sphere->center.z += cos(time + j) / 10;
         }
       }
-      image << "\n";
+      // Animate light
+      lightPosition.y -= 0.001f;
+      lightPosition.x += cos(time / 4) / 100;
+
+      // --- Render Step ---
+      for (int l = 0; l < numRows; l++)
+      {
+        for (int c = 0; c < numCols; c++)
+        {
+          float x, y;
+          convertDisplayToWindow(c, l, x, y);
+          Vector4 d(x - observerPosition.x, y - observerPosition.y, -viewplaneDistance, 0);
+
+          Ray ray(d.normalize(), observerPosition);
+
+          float closest_t;
+          Object *closestObject = getIntersectedObject(ray, objects, closest_t);
+
+          if (closestObject == nullptr)
+          {
+            image << "10 50 200 "; // Background color
+          }
+          else
+          {
+            Point P = ray.origin + (ray.dir * closest_t);
+            Vector4 N = closestObject->getNormal(P);
+            N.normalize();
+
+            // Check if the object is a mirror
+            if (MirrorSphere *v = dynamic_cast<MirrorSphere *>(closestObject))
+            {
+              // --- Reflection Logic ---
+              Vector4 D = ray.dir.normalize();
+              float d_dot_n = D.dot(N);
+              Vector4 reflectedDirection = D - (N * (2.0f * d_dot_n));
+              reflectedDirection.normalize();
+
+              Point reflectedOrigin = P + (N * 0.001f);
+              Ray reflected_ray(reflectedDirection, reflectedOrigin);
+
+              float reflected_t;
+              Object *reflectedObject = getIntersectedObject(reflected_ray, objects, reflected_t);
+
+              if (reflectedObject == nullptr)
+              {
+                image << "10 50 200 "; // Reflected background
+              }
+              else
+              {
+                // Use the diffuse color of the reflected object
+                Color reflectedColor = reflectedObject->material.Kd;
+                reflectedColor.clamp();
+                image << reflectedColor.r << " " << reflectedColor.g << " " << reflectedColor.b << " ";
+              }
+            }
+            else
+            {
+              // --- Phong Shading Logic ---
+              Material mat = closestObject->material;
+              Color ambientColor = mat.Ka * ambientLightIntensity;
+
+              Vector4 lightVector = (lightPosition - P);
+              float distanceToLight = lightVector.lenght();
+              Vector4 lightDirection = lightVector.normalize();
+
+              // --- Shadow Check ---
+              Point shadowRayOrigin = P + (N * 0.001f);
+              Ray shadowRay(lightDirection, shadowRayOrigin);
+
+              float shadow_t;
+              Object *obstructingObject = getIntersectedObject(shadowRay, objects, shadow_t);
+              
+              // The point is in shadow if:
+              // 1. The shadow ray hit something.
+              // 2. The object hit is *between* the point and the light.
+              bool inShadow = (obstructingObject != nullptr) && (shadow_t < distanceToLight);
+              
+              Color diffuseColor(0, 0, 0);
+              Color specularColor(0, 0, 0);
+
+              if (!inShadow)
+              {
+                Vector4 V = (observerPosition - P).normalize();
+                Vector4 R = (N * (2.0f * N.dot(lightDirection))) - lightDirection;
+
+                float diffuseFactor = std::max(0.0f, N.dot(lightDirection));
+                if (diffuseFactor > 0)
+                {
+                  diffuseColor = (mat.Kd * lightIntensity) * diffuseFactor;
+                }
+
+                float specularFactor =
+                    std::pow(std::max(0.0f, V.dot(R.normalize())), mat.shininess);
+                if (specularFactor > 0)
+                {
+                  specularColor = (mat.Ks * lightIntensity) * specularFactor;
+                }
+              }
+              
+              // Final color is ambient + (diffuse + specular if not in shadow)
+              Color finalColor = ambientColor + diffuseColor + specularColor;
+              finalColor.clamp();
+
+              image << finalColor.r << " " << finalColor.g << " " << finalColor.b
+                    << " ";
+            }
+          }
+        }
+        image << "\n";
+      }
+      image.close();
     }
-    image.close();
   }
-}
   return 0;
 }
