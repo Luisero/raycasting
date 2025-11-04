@@ -20,13 +20,13 @@ const int numCols = 2.f * 300, numRows = 1.5 * 300;
 float Dx = windowWidth / numCols;
 float Dy = windowHeight / numRows;
 float viewplaneDistance = 10;
-const int FRAMES_AMOUNT = 30;
+const int FRAMES_AMOUNT = 1;
 
 Point observerPosition(0, 0, 0, 1);
 
-Point lightPosition(-1.f, 4.0f, -viewplaneDistance, 1.0f);
+Point lightPosition(-1.f, 2.0f, viewplaneDistance, 1.0f);
 Color lightIntensity(255, 255, 255);
-Color ambientLightIntensity(25, 25, 25);
+Color ambientLightIntensity(80,80,80);
 
 void convertDisplayToWindow(int display_x, int display_y, float &ndc_x,
                               float &ndc_y)
@@ -79,14 +79,14 @@ int main()
                        Color(255,10,20),
                        Color(255, 255, 255),
                        128.0f);
-  Material matFloor(Color(20, 50, 20),
+  Material matFloor(Color(40, 90, 50),
                     Color(35, 196, 12),
                     Color(255, 255, 255),
                     255.f);
-  Material matWall(Color(20, 20, 50),
+  Material matWall(Color(10, 10, 20),
                    Color(35, 100, 196),
                    Color(255, 255, 255),
-                   255.f);
+                   99999.f);
   Material matMirror(Color(0, 0, 0),
                      Color(0, 0, 0),
                      Color(0, 0, 0),
@@ -110,7 +110,7 @@ int main()
   // 3. Red Sphere
   objects.push_back(std::make_unique<Sphere>(
         defaultCenter + Vector4(-0.1f, 0.2f, viewplaneDistance *2, 0.f),
-        sphereRadius*10,
+        sphereRadius*2,
         matRed));
   
   // 4. Mirror Sphere
@@ -124,8 +124,8 @@ int main()
   objects.push_back(std::make_unique<Plane>(floorPoint, floorNormal, matFloor));
 
   // 6. Wall
-  Point wallPoint(0.f, 0.f, -viewplaneDistance * 3, 1.f);
-  Vector4 wallNormal(0, 0, 2, 0);
+  Point wallPoint(0.f, 0.f, -viewplaneDistance *2, 1.f);
+  Vector4 wallNormal(0, 0, 1, 0);
   objects.push_back(std::make_unique<Plane>(wallPoint, wallNormal, matWall));
 
 
