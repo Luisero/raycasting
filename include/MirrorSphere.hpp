@@ -12,11 +12,18 @@
  */
 class MirrorSphere : public Sphere {
 public:
-  // Construtor que simplesmente repassa os dados para a classe base Sphere
   MirrorSphere(Point center, float radius, Material mat);
 
-  // Não precisamos de mais nada, apenas o fato de ser um 
-  // tipo diferente já é o suficiente para o dynamic_cast.
+  // --- Adiciona a declaração de override ---
+  virtual Color shade(
+      const Ray& viewingRay,
+      const Point& intersectionPoint,
+      const Point& lightPosition,
+      const Color& lightIntensity,
+      const Color& ambientLightIntensity,
+      const Point& observerPosition,
+      const std::vector<std::unique_ptr<Object>>& allObjects
+  ) override;
 };
 
 #endif // !MIRROR_SPHERE_HPP

@@ -1,7 +1,7 @@
 CMakeFiles/main.dir/src/main.cpp.o: \
- /home/fernanda/Programming/computacao_grafica/raycasting/src/main.cpp \
+ /home/luis/Programming/computer_graphics/raycasting/src/main.cpp \
  /usr/include/stdc-predef.h \
- /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/Color.hpp \
+ /home/luis/Programming/computer_graphics/raycasting/src/../include/Color.hpp \
  /usr/include/c++/11/algorithm /usr/include/c++/11/utility \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -100,8 +100,8 @@ CMakeFiles/main.dir/src/main.cpp.o: \
  /usr/include/c++/11/bits/stl_bvector.h \
  /usr/include/c++/11/bits/vector.tcc \
  /usr/include/c++/11/pstl/execution_defs.h \
- /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/Point.hpp \
- /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/./Vector.hpp \
+ /home/luis/Programming/computer_graphics/raycasting/src/../include/Point.hpp \
+ /home/luis/Programming/computer_graphics/raycasting/src/../include/./Vector.hpp \
  /usr/include/c++/11/cmath /usr/include/math.h \
  /usr/include/x86_64-linux-gnu/bits/math-vector.h \
  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
@@ -125,45 +125,35 @@ CMakeFiles/main.dir/src/main.cpp.o: \
  /usr/include/c++/11/tr1/poly_hermite.tcc \
  /usr/include/c++/11/tr1/poly_laguerre.tcc \
  /usr/include/c++/11/tr1/riemann_zeta.tcc \
- /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/Ray.hpp \
- /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/./Point.hpp \
- /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/Sphere.hpp \
- /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/./Material.hpp \
- /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/./Color.hpp \
- /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/./Object.hpp \
- /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/././Material.hpp \
- /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/././Point.hpp \
- /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/././Ray.hpp \
- /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/./Vector.hpp \
- /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/Vector.hpp \
- /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/Vector.hpp \
- /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/Plane.hpp \
- /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/Point.hpp \
- /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/Material.hpp \
- /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/MirrorSphere.hpp \
- /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/Sphere.hpp \
- /usr/include/c++/11/fstream /usr/include/c++/11/istream \
- /usr/include/c++/11/ios /usr/include/c++/11/iosfwd \
+ /home/luis/Programming/computer_graphics/raycasting/src/../include/Ray.hpp \
+ /home/luis/Programming/computer_graphics/raycasting/src/../include/./Point.hpp \
+ /home/luis/Programming/computer_graphics/raycasting/src/../include/Sphere.hpp \
+ /home/luis/Programming/computer_graphics/raycasting/src/../include/./Material.hpp \
+ /home/luis/Programming/computer_graphics/raycasting/src/../include/./Color.hpp \
+ /home/luis/Programming/computer_graphics/raycasting/src/../include/./Object.hpp \
+ /home/luis/Programming/computer_graphics/raycasting/src/../include/././Material.hpp \
+ /home/luis/Programming/computer_graphics/raycasting/src/../include/././Point.hpp \
+ /home/luis/Programming/computer_graphics/raycasting/src/../include/././Ray.hpp \
+ /home/luis/Programming/computer_graphics/raycasting/src/../include/././Vector.hpp \
+ /home/luis/Programming/computer_graphics/raycasting/src/../include/././Color.hpp \
+ /usr/include/c++/11/memory \
+ /usr/include/c++/11/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/11/bits/align.h /usr/include/c++/11/bit \
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
+ /usr/include/x86_64-linux-gnu/bits/wchar.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+ /usr/include/c++/11/bits/unique_ptr.h \
+ /usr/include/c++/11/bits/shared_ptr.h /usr/include/c++/11/iosfwd \
  /usr/include/c++/11/bits/stringfwd.h /usr/include/c++/11/bits/postypes.h \
  /usr/include/c++/11/cwchar /usr/include/wchar.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
- /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
  /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
- /usr/include/c++/11/exception /usr/include/c++/11/bits/exception_ptr.h \
- /usr/include/c++/11/bits/cxxabi_init_exception.h \
- /usr/include/c++/11/bits/nested_exception.h \
- /usr/include/c++/11/bits/char_traits.h /usr/include/c++/11/cstdint \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
- /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
- /usr/include/c++/11/bits/localefwd.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++locale.h \
- /usr/include/c++/11/clocale /usr/include/locale.h \
- /usr/include/x86_64-linux-gnu/bits/locale.h /usr/include/c++/11/cctype \
- /usr/include/ctype.h /usr/include/c++/11/bits/ios_base.h \
+ /usr/include/c++/11/bits/shared_ptr_base.h \
+ /usr/include/c++/11/bits/allocated_ptr.h \
  /usr/include/c++/11/ext/atomicity.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/gthr.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/gthr-default.h \
@@ -180,6 +170,30 @@ CMakeFiles/main.dir/src/main.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/atomic_word.h \
  /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
+ /usr/include/c++/11/ext/concurrence.h /usr/include/c++/11/exception \
+ /usr/include/c++/11/bits/exception_ptr.h \
+ /usr/include/c++/11/bits/cxxabi_init_exception.h \
+ /usr/include/c++/11/bits/nested_exception.h \
+ /usr/include/c++/11/bits/shared_ptr_atomic.h \
+ /usr/include/c++/11/bits/atomic_base.h \
+ /usr/include/c++/11/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/11/backward/auto_ptr.h \
+ /usr/include/c++/11/pstl/glue_memory_defs.h \
+ /home/luis/Programming/computer_graphics/raycasting/src/../include/Vector.hpp \
+ /home/luis/Programming/computer_graphics/raycasting/src/../include/Vector.hpp \
+ /home/luis/Programming/computer_graphics/raycasting/src/../include/Plane.hpp \
+ /home/luis/Programming/computer_graphics/raycasting/src/../include/Point.hpp \
+ /home/luis/Programming/computer_graphics/raycasting/src/../include/Material.hpp \
+ /home/luis/Programming/computer_graphics/raycasting/src/../include/MirrorSphere.hpp \
+ /home/luis/Programming/computer_graphics/raycasting/src/../include/Sphere.hpp \
+ /home/luis/Programming/computer_graphics/raycasting/src/../include/Object.hpp \
+ /usr/include/c++/11/fstream /usr/include/c++/11/istream \
+ /usr/include/c++/11/ios /usr/include/c++/11/bits/char_traits.h \
+ /usr/include/c++/11/cstdint /usr/include/c++/11/bits/localefwd.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/c++locale.h \
+ /usr/include/c++/11/clocale /usr/include/locale.h \
+ /usr/include/x86_64-linux-gnu/bits/locale.h /usr/include/c++/11/cctype \
+ /usr/include/ctype.h /usr/include/c++/11/bits/ios_base.h \
  /usr/include/c++/11/bits/locale_classes.h /usr/include/c++/11/string \
  /usr/include/c++/11/bits/ostream_insert.h \
  /usr/include/c++/11/bits/cxxabi_forced.h \
@@ -216,17 +230,4 @@ CMakeFiles/main.dir/src/main.cpp.o: \
  /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
  /usr/include/c++/11/bits/fstream.tcc /usr/include/c++/11/iostream \
- /usr/include/memory.h /usr/include/string.h /usr/include/strings.h \
- /usr/include/c++/11/memory \
- /usr/include/c++/11/bits/stl_raw_storage_iter.h \
- /usr/include/c++/11/bits/align.h /usr/include/c++/11/bit \
- /usr/include/c++/11/bits/unique_ptr.h \
- /usr/include/c++/11/bits/shared_ptr.h \
- /usr/include/c++/11/bits/shared_ptr_base.h \
- /usr/include/c++/11/bits/allocated_ptr.h \
- /usr/include/c++/11/ext/concurrence.h \
- /usr/include/c++/11/bits/shared_ptr_atomic.h \
- /usr/include/c++/11/bits/atomic_base.h \
- /usr/include/c++/11/bits/atomic_lockfree_defines.h \
- /usr/include/c++/11/backward/auto_ptr.h \
- /usr/include/c++/11/pstl/glue_memory_defs.h
+ /usr/include/memory.h /usr/include/string.h /usr/include/strings.h

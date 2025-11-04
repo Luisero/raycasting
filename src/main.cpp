@@ -5,6 +5,7 @@
 #include "../include/Vector.hpp"
 #include "../include/Plane.hpp"
 #include "../include/MirrorSphere.hpp"
+#include "../include/Object.hpp" // <-- Inclui este (contém a declaração de getIntersectedObject)
 #include <algorithm>
 #include <vector>
 #include <cmath>
@@ -16,15 +17,15 @@
 
 // --- CONSTANTS ---
 const float windowWidth = 2.f, windowHeight = 1.5f;
-const int numCols = 2.f * 300, numRows = 1.5 * 300;
+const int numCols = 2.f * 400, numRows = 1.5 * 400;
 float Dx = windowWidth / numCols;
 float Dy = windowHeight / numRows;
 float viewplaneDistance = 10;
-const int FRAMES_AMOUNT = 1;
+const int FRAMES_AMOUNT = 30*1;
 
 Point observerPosition(0, 0, 0, 1);
 
-Point lightPosition(-1.f, 2.0f, viewplaneDistance, 1.0f);
+Point lightPosition(-1.f, 2.0f, -viewplaneDistance/2, 1.0f);
 Color lightIntensity(255, 255, 255);
 Color ambientLightIntensity(80,80,80);
 
@@ -36,32 +37,8 @@ void convertDisplayToWindow(int display_x, int display_y, float &ndc_x,
   ndc_y = windowHeight / 2.0f - Dy / 2.0f - display_y * Dy;
 }
 
-Object *getIntersectedObject(Ray ray,
-                             const std::vector<std::unique_ptr<Object>> &objects,
-                             float &closest_t)
-{
-  closest_t = -1.0f;
-  Object *closestObject = nullptr;
-
-  for (const auto &object : objects)
-  {
-    if (object == nullptr)
-    {
-      continue;
-    }
-    float current_t = object->intersect(ray);
-
-    if (current_t > 0.001f) // Epsilon to avoid self-intersection
-    {
-      if (closest_t == -1.0f || current_t < closest_t)
-      {
-        closest_t = current_t;
-        closestObject = object.get();
-      }
-    }
-  }
-  return closestObject;
-}
+// --- A FUNÇÃO getIntersectedObject FOI MOVIDA PARA Object.cpp ---
+// (Ela ainda é declarada em Object.hpp, que nós incluímos)
 
 int main()
 {
@@ -83,14 +60,14 @@ int main()
                     Color(35, 196, 12),
                     Color(255, 255, 255),
                     255.f);
-  Material matWall(Color(10, 10, 20),
-                   Color(35, 100, 196),
-                   Color(255, 255, 255),
-                   99999.f);
+  Material matWall(Color(40, 40, 50), //
+                   Color(35, 100, 196), //
+                   Color(255, 255, 255), //
+                   99999.f); //
   Material matMirror(Color(0, 0, 0),
-                     Color(0, 0, 0),
-                     Color(0, 0, 0),
-                     128.f);
+                       Color(0, 0, 0),
+                       Color(0, 0, 0),
+                       128.f);
 
   float sphereRadius = .2f;
   Point defaultCenter(0.f, 0.f, -viewplaneDistance + sphereRadius, 1.f);
@@ -98,32 +75,46 @@ int main()
   std::vector<std::unique_ptr<Object>> objects;
 
   // --- SCENE OBJECTS ---
-  // 1. Orange Sphere
-  objects.push_back(std::make_unique<Sphere>(defaultCenter, sphereRadius, matOrange));
-  
-  // 2. Pink Sphere
+  // (Esta seção não muda)
+  objects.push_back(std::make_unique<Sphere>(defaultCenter + Vector4(-0.7f,0,-2,0), sphereRadius, matOrange));
   objects.push_back(std::make_unique<Sphere>(
-      defaultCenter + Vector4(0.5f, 0.2f, -1.0f, 0.f),
+      defaultCenter + Vector4(-0.8f, 0.4f, 1.0f, 0.f),
       sphereRadius,
       matPink));
-  
-  // 3. Red Sphere
   objects.push_back(std::make_unique<Sphere>(
         defaultCenter + Vector4(-0.1f, 0.2f, viewplaneDistance *2, 0.f),
         sphereRadius*2,
         matRed));
-  
-  // 4. Mirror Sphere
-  objects.push_back(std::make_unique<MirrorSphere>(
-      defaultCenter + Vector4(-0.5, .5f, 0.f, 0.f), sphereRadius,
-      matMirror));
+    objects.push_back(std::make_unique<Sphere>(
+        defaultCenter + Vector4(+0.6f, -0.1f, 2, 0.f),
+        sphereRadius,
+        matRed));
 
-  // 5. Floor
+objects.push_back(std::make_unique<MirrorSphere>(
+        Point(0,0.f,-viewplaneDistance ,1)  ,
+        sphereRadius,
+        matRed));    
+
+for (int i = 1; i <= 5; i++)
+{
+  int r = static_cast<int>(std::sin(0.6f * i + 0.0f) * 127 + 128);
+    int g = static_cast<int>(std::sin(0.6f * i + 2.0f) * 127 + 128);
+    int b = static_cast<int>(std::sin(0.6f * i + 4.0f) * 127 + 128);
+
+    // 2. Crie um material único para esta esfera
+    Material matRandom(Color(r/20, g/20, b/20), // Ka (ambiente escuro)
+                         Color(r, g, b),         // Kd (a cor principal)
+                         Color(255, 255, 255), // Ks (brilho branco)
+                         128.0f);
+  objects.push_back(std::make_unique<Sphere>(
+        Point( -0.5f+ (1.f/i), -0.2f, -viewplaneDistance + 5 ,1),
+        sphereRadius/4,
+        matRandom));
+}
+
   Point floorPoint(0.f, -sphereRadius * 2.f, 0.f, 1.f);
   Vector4 floorNormal(0.f, 1.f, 0.f, 0.f);
   objects.push_back(std::make_unique<Plane>(floorPoint, floorNormal, matFloor));
-
-  // 6. Wall
   Point wallPoint(0.f, 0.f, -viewplaneDistance *2, 1.f);
   Vector4 wallNormal(0, 0, 1, 0);
   objects.push_back(std::make_unique<Plane>(wallPoint, wallNormal, matWall));
@@ -146,21 +137,19 @@ int main()
       image << 255 << "\n";
 
       // --- Animation Step ---
+      // (Esta seção não muda)
       for (int j = 0; j < objects.size(); j++)
       {
         if (objects[j] == nullptr)
         {
           continue;
         }
-
-        // Animate only objects that are Spheres (or derived from Sphere)
         if (Sphere *sphere = dynamic_cast<Sphere *>(objects[j].get()))
         {
-          sphere->center.y += sin(time + j) / 100;
+          sphere->center.y += sin(time + j) / 150;
           sphere->center.z += cos(time + j) / 10;
         }
       }
-      // Animate light
       lightPosition.y -= 0.001f;
       lightPosition.x += cos(time / 4) / 100;
 
@@ -184,88 +173,27 @@ int main()
           }
           else
           {
+            // --- LÓGICA DE SOMBREAMENTO SIMPLIFICADA ---
+            
+            // 1. Encontre o ponto de colisão
             Point P = ray.origin + (ray.dir * closest_t);
-            Vector4 N = closestObject->getNormal(P);
-            N.normalize();
 
-            // Check if the object is a mirror
-            if (MirrorSphere *v = dynamic_cast<MirrorSphere *>(closestObject))
-            {
-              // --- Reflection Logic ---
-              Vector4 D = ray.dir.normalize();
-              float d_dot_n = D.dot(N);
-              Vector4 reflectedDirection = D - (N * (2.0f * d_dot_n));
-              reflectedDirection.normalize();
-
-              Point reflectedOrigin = P + (N * 0.001f);
-              Ray reflected_ray(reflectedDirection, reflectedOrigin);
-
-              float reflected_t;
-              Object *reflectedObject = getIntersectedObject(reflected_ray, objects, reflected_t);
-
-              if (reflectedObject == nullptr)
-              {
-                image << "10 50 200 "; // Reflected background
-              }
-              else
-              {
-                // Use the diffuse color of the reflected object
-                Color reflectedColor = reflectedObject->material.Kd;
-                reflectedColor.clamp();
-                image << reflectedColor.r << " " << reflectedColor.g << " " << reflectedColor.b << " ";
-              }
-            }
-            else
-            {
-              // --- Phong Shading Logic ---
-              Material mat = closestObject->material;
-              Color ambientColor = mat.Ka * ambientLightIntensity;
-
-              Vector4 lightVector = (lightPosition - P);
-              float distanceToLight = lightVector.lenght();
-              Vector4 lightDirection = lightVector.normalize();
-
-              // --- Shadow Check ---
-              Point shadowRayOrigin = P + (N * 0.001f);
-              Ray shadowRay(lightDirection, shadowRayOrigin);
-
-              float shadow_t;
-              Object *obstructingObject = getIntersectedObject(shadowRay, objects, shadow_t);
-              
-              // The point is in shadow if:
-              // 1. The shadow ray hit something.
-              // 2. The object hit is *between* the point and the light.
-              bool inShadow = (obstructingObject != nullptr) && (shadow_t < distanceToLight);
-              
-              Color diffuseColor(0, 0, 0);
-              Color specularColor(0, 0, 0);
-
-              if (!inShadow)
-              {
-                Vector4 V = (observerPosition - P).normalize();
-                Vector4 R = (N * (2.0f * N.dot(lightDirection))) - lightDirection;
-
-                float diffuseFactor = std::max(0.0f, N.dot(lightDirection));
-                if (diffuseFactor > 0)
-                {
-                  diffuseColor = (mat.Kd * lightIntensity) * diffuseFactor;
-                }
-
-                float specularFactor =
-                    std::pow(std::max(0.0f, V.dot(R.normalize())), mat.shininess);
-                if (specularFactor > 0)
-                {
-                  specularColor = (mat.Ks * lightIntensity) * specularFactor;
-                }
-              }
-              
-              // Final color is ambient + (diffuse + specular if not in shadow)
-              Color finalColor = ambientColor + diffuseColor + specularColor;
-              finalColor.clamp();
-
-              image << finalColor.r << " " << finalColor.g << " " << finalColor.b
-                    << " ";
-            }
+            // 2. Peça ao objeto para calcular sua própria cor
+            //    O objeto vai decidir se faz Phong, Reflexão, etc.
+            Color finalColor = closestObject->shade(
+                ray,
+                P,
+                lightPosition,
+                lightIntensity,
+                ambientLightIntensity,
+                observerPosition,
+                objects
+            );
+            
+            // 3. Escreva a cor no arquivo
+            finalColor.clamp();
+            image << finalColor.r << " " << finalColor.g << " " << finalColor.b
+                  << " ";
           }
         }
         image << "\n";

@@ -8,7 +8,8 @@ public:
   Vector4(float x, float y, float z, float w);
   Vector4();
 
-  float dot(Vector4 vec) {
+  // --- MUDANÇA: Adicionado 'const' no final ---
+  float dot(Vector4 vec) const {
     float res = this->x * vec.x;
     res += this->y * vec.y;
     res += this->z * vec.z;
@@ -16,29 +17,51 @@ public:
     return res;
   };
 
-  Vector4 operator-(Vector4 vec) {
+  // --- MUDANÇA: Adicionado 'const' no final ---
+  Vector4 operator-(Vector4 vec) const {
     Vector4 res(this->x - vec.x, this->y - vec.y, this->z - vec.z,
                 this->w - vec.w);
     return res;
   };
-  Vector4 operator+(Vector4 vec) {
+
+  // --- MUDANÇA: Adicionado 'const' no final ---
+  Vector4 operator+(Vector4 vec) const {
     Vector4 res(this->x + vec.x, this->y + vec.y, this->z + vec.z,
                 this->w + vec.w);
     return res;
   }
-  float lenght() {
+
+  // --- MUDANÇA: Adicionado 'const' no final ---
+  float lenght() const {
     float lenght =
         std::sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2));
     return lenght;
   }
+
+  // Esta função MODIFICA o objeto
   Vector4 normalize() {
     float lenght = this->lenght();
-    this->x /= lenght;
-    this->y /= lenght;
-    this->z /= lenght;
-    return Vector4(this->x, this->y, this->z, 0);
+    if (lenght > 0) {
+      this->x /= lenght;
+      this->y /= lenght;
+      this->z /= lenght;
+    }
+    this->w = 0; // Vetores devem ter w=0
+    return *this;
   }
-  Vector4 operator*(float scalar) {
+
+  // --- NOVO: Versão 'const' que retorna uma cópia ---
+  Vector4 normalized() const {
+    float lenght = this->lenght();
+    if (lenght == 0) return Vector4(0,0,0,0);
+    return Vector4(this->x / lenght, 
+                   this->y / lenght, 
+                   this->z / lenght, 
+                   0.0f); // Vetores devem ter w=0
+  }
+
+  // --- MUDANÇA: Adicionado 'const' no final ---
+  Vector4 operator*(float scalar) const {
     return Vector4(this->x * scalar, this->y * scalar, this->z * scalar,
                    this->w * scalar);
   }

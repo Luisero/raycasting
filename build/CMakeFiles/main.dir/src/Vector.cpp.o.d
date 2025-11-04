@@ -1,7 +1,7 @@
 CMakeFiles/main.dir/src/Vector.cpp.o: \
- /home/fernanda/Programming/computacao_grafica/raycasting/src/Vector.cpp \
+ /home/luis/Programming/computer_graphics/raycasting/src/Vector.cpp \
  /usr/include/stdc-predef.h \
- /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/Vector.hpp \
+ /home/luis/Programming/computer_graphics/raycasting/src/../include/Vector.hpp \
  /usr/include/c++/11/cmath \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
