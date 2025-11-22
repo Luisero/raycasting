@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/luis/Programming/computer_graphics/raycasting
+CMAKE_SOURCE_DIR = /home/fernanda/Programming/computacao_grafica/raycasting
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/luis/Programming/computer_graphics/raycasting/build
+CMAKE_BINARY_DIR = /home/fernanda/Programming/computacao_grafica/raycasting/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/luis/Programming/computer_graphics/raycasting/build/CMakeFiles /home/luis/Programming/computer_graphics/raycasting/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fernanda/Programming/computacao_grafica/raycasting/build/CMakeFiles /home/fernanda/Programming/computacao_grafica/raycasting/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/luis/Programming/computer_graphics/raycasting/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fernanda/Programming/computacao_grafica/raycasting/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -152,6 +152,30 @@ src/Color.s: src/Color.cpp.s
 src/Color.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/Color.cpp.s
 .PHONY : src/Color.cpp.s
+
+src/Cylinder.o: src/Cylinder.cpp.o
+.PHONY : src/Cylinder.o
+
+# target to build an object file
+src/Cylinder.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/Cylinder.cpp.o
+.PHONY : src/Cylinder.cpp.o
+
+src/Cylinder.i: src/Cylinder.cpp.i
+.PHONY : src/Cylinder.i
+
+# target to preprocess a source file
+src/Cylinder.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/Cylinder.cpp.i
+.PHONY : src/Cylinder.cpp.i
+
+src/Cylinder.s: src/Cylinder.cpp.s
+.PHONY : src/Cylinder.s
+
+# target to generate assembly for a file
+src/Cylinder.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/Cylinder.cpp.s
+.PHONY : src/Cylinder.cpp.s
 
 src/Material.o: src/Material.cpp.o
 .PHONY : src/Material.o
@@ -333,6 +357,9 @@ help:
 	@echo "... src/Color.o"
 	@echo "... src/Color.i"
 	@echo "... src/Color.s"
+	@echo "... src/Cylinder.o"
+	@echo "... src/Cylinder.i"
+	@echo "... src/Cylinder.s"
 	@echo "... src/Material.o"
 	@echo "... src/Material.i"
 	@echo "... src/Material.s"

@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/luis/Programming/computer_graphics/raycasting
+CMAKE_SOURCE_DIR = /home/fernanda/Programming/computacao_grafica/raycasting
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/luis/Programming/computer_graphics/raycasting/build
+CMAKE_BINARY_DIR = /home/fernanda/Programming/computacao_grafica/raycasting/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/main.dir/depend.make
@@ -72,114 +72,128 @@ include CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/main.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/main.cpp.o: ../src/main.cpp
 CMakeFiles/main.dir/src/main.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/luis/Programming/computer_graphics/raycasting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/main.dir/src/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/main.cpp.o -MF CMakeFiles/main.dir/src/main.cpp.o.d -o CMakeFiles/main.dir/src/main.cpp.o -c /home/luis/Programming/computer_graphics/raycasting/src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/fernanda/Programming/computacao_grafica/raycasting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/main.dir/src/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/main.cpp.o -MF CMakeFiles/main.dir/src/main.cpp.o.d -o CMakeFiles/main.dir/src/main.cpp.o -c /home/fernanda/Programming/computacao_grafica/raycasting/src/main.cpp
 
 CMakeFiles/main.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/luis/Programming/computer_graphics/raycasting/src/main.cpp > CMakeFiles/main.dir/src/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/fernanda/Programming/computacao_grafica/raycasting/src/main.cpp > CMakeFiles/main.dir/src/main.cpp.i
 
 CMakeFiles/main.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/luis/Programming/computer_graphics/raycasting/src/main.cpp -o CMakeFiles/main.dir/src/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/fernanda/Programming/computacao_grafica/raycasting/src/main.cpp -o CMakeFiles/main.dir/src/main.cpp.s
 
 CMakeFiles/main.dir/src/Vector.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/Vector.cpp.o: ../src/Vector.cpp
 CMakeFiles/main.dir/src/Vector.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/luis/Programming/computer_graphics/raycasting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main.dir/src/Vector.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/Vector.cpp.o -MF CMakeFiles/main.dir/src/Vector.cpp.o.d -o CMakeFiles/main.dir/src/Vector.cpp.o -c /home/luis/Programming/computer_graphics/raycasting/src/Vector.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/fernanda/Programming/computacao_grafica/raycasting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main.dir/src/Vector.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/Vector.cpp.o -MF CMakeFiles/main.dir/src/Vector.cpp.o.d -o CMakeFiles/main.dir/src/Vector.cpp.o -c /home/fernanda/Programming/computacao_grafica/raycasting/src/Vector.cpp
 
 CMakeFiles/main.dir/src/Vector.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/Vector.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/luis/Programming/computer_graphics/raycasting/src/Vector.cpp > CMakeFiles/main.dir/src/Vector.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/fernanda/Programming/computacao_grafica/raycasting/src/Vector.cpp > CMakeFiles/main.dir/src/Vector.cpp.i
 
 CMakeFiles/main.dir/src/Vector.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/Vector.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/luis/Programming/computer_graphics/raycasting/src/Vector.cpp -o CMakeFiles/main.dir/src/Vector.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/fernanda/Programming/computacao_grafica/raycasting/src/Vector.cpp -o CMakeFiles/main.dir/src/Vector.cpp.s
 
 CMakeFiles/main.dir/src/Sphere.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/Sphere.cpp.o: ../src/Sphere.cpp
 CMakeFiles/main.dir/src/Sphere.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/luis/Programming/computer_graphics/raycasting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main.dir/src/Sphere.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/Sphere.cpp.o -MF CMakeFiles/main.dir/src/Sphere.cpp.o.d -o CMakeFiles/main.dir/src/Sphere.cpp.o -c /home/luis/Programming/computer_graphics/raycasting/src/Sphere.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/fernanda/Programming/computacao_grafica/raycasting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main.dir/src/Sphere.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/Sphere.cpp.o -MF CMakeFiles/main.dir/src/Sphere.cpp.o.d -o CMakeFiles/main.dir/src/Sphere.cpp.o -c /home/fernanda/Programming/computacao_grafica/raycasting/src/Sphere.cpp
 
 CMakeFiles/main.dir/src/Sphere.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/Sphere.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/luis/Programming/computer_graphics/raycasting/src/Sphere.cpp > CMakeFiles/main.dir/src/Sphere.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/fernanda/Programming/computacao_grafica/raycasting/src/Sphere.cpp > CMakeFiles/main.dir/src/Sphere.cpp.i
 
 CMakeFiles/main.dir/src/Sphere.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/Sphere.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/luis/Programming/computer_graphics/raycasting/src/Sphere.cpp -o CMakeFiles/main.dir/src/Sphere.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/fernanda/Programming/computacao_grafica/raycasting/src/Sphere.cpp -o CMakeFiles/main.dir/src/Sphere.cpp.s
 
 CMakeFiles/main.dir/src/Object.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/Object.cpp.o: ../src/Object.cpp
 CMakeFiles/main.dir/src/Object.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/luis/Programming/computer_graphics/raycasting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/main.dir/src/Object.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/Object.cpp.o -MF CMakeFiles/main.dir/src/Object.cpp.o.d -o CMakeFiles/main.dir/src/Object.cpp.o -c /home/luis/Programming/computer_graphics/raycasting/src/Object.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/fernanda/Programming/computacao_grafica/raycasting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/main.dir/src/Object.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/Object.cpp.o -MF CMakeFiles/main.dir/src/Object.cpp.o.d -o CMakeFiles/main.dir/src/Object.cpp.o -c /home/fernanda/Programming/computacao_grafica/raycasting/src/Object.cpp
 
 CMakeFiles/main.dir/src/Object.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/Object.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/luis/Programming/computer_graphics/raycasting/src/Object.cpp > CMakeFiles/main.dir/src/Object.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/fernanda/Programming/computacao_grafica/raycasting/src/Object.cpp > CMakeFiles/main.dir/src/Object.cpp.i
 
 CMakeFiles/main.dir/src/Object.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/Object.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/luis/Programming/computer_graphics/raycasting/src/Object.cpp -o CMakeFiles/main.dir/src/Object.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/fernanda/Programming/computacao_grafica/raycasting/src/Object.cpp -o CMakeFiles/main.dir/src/Object.cpp.s
 
 CMakeFiles/main.dir/src/Color.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/Color.cpp.o: ../src/Color.cpp
 CMakeFiles/main.dir/src/Color.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/luis/Programming/computer_graphics/raycasting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/main.dir/src/Color.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/Color.cpp.o -MF CMakeFiles/main.dir/src/Color.cpp.o.d -o CMakeFiles/main.dir/src/Color.cpp.o -c /home/luis/Programming/computer_graphics/raycasting/src/Color.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/fernanda/Programming/computacao_grafica/raycasting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/main.dir/src/Color.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/Color.cpp.o -MF CMakeFiles/main.dir/src/Color.cpp.o.d -o CMakeFiles/main.dir/src/Color.cpp.o -c /home/fernanda/Programming/computacao_grafica/raycasting/src/Color.cpp
 
 CMakeFiles/main.dir/src/Color.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/Color.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/luis/Programming/computer_graphics/raycasting/src/Color.cpp > CMakeFiles/main.dir/src/Color.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/fernanda/Programming/computacao_grafica/raycasting/src/Color.cpp > CMakeFiles/main.dir/src/Color.cpp.i
 
 CMakeFiles/main.dir/src/Color.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/Color.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/luis/Programming/computer_graphics/raycasting/src/Color.cpp -o CMakeFiles/main.dir/src/Color.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/fernanda/Programming/computacao_grafica/raycasting/src/Color.cpp -o CMakeFiles/main.dir/src/Color.cpp.s
 
 CMakeFiles/main.dir/src/Material.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/Material.cpp.o: ../src/Material.cpp
 CMakeFiles/main.dir/src/Material.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/luis/Programming/computer_graphics/raycasting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/main.dir/src/Material.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/Material.cpp.o -MF CMakeFiles/main.dir/src/Material.cpp.o.d -o CMakeFiles/main.dir/src/Material.cpp.o -c /home/luis/Programming/computer_graphics/raycasting/src/Material.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/fernanda/Programming/computacao_grafica/raycasting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/main.dir/src/Material.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/Material.cpp.o -MF CMakeFiles/main.dir/src/Material.cpp.o.d -o CMakeFiles/main.dir/src/Material.cpp.o -c /home/fernanda/Programming/computacao_grafica/raycasting/src/Material.cpp
 
 CMakeFiles/main.dir/src/Material.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/Material.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/luis/Programming/computer_graphics/raycasting/src/Material.cpp > CMakeFiles/main.dir/src/Material.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/fernanda/Programming/computacao_grafica/raycasting/src/Material.cpp > CMakeFiles/main.dir/src/Material.cpp.i
 
 CMakeFiles/main.dir/src/Material.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/Material.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/luis/Programming/computer_graphics/raycasting/src/Material.cpp -o CMakeFiles/main.dir/src/Material.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/fernanda/Programming/computacao_grafica/raycasting/src/Material.cpp -o CMakeFiles/main.dir/src/Material.cpp.s
 
 CMakeFiles/main.dir/src/Plane.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/Plane.cpp.o: ../src/Plane.cpp
 CMakeFiles/main.dir/src/Plane.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/luis/Programming/computer_graphics/raycasting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/main.dir/src/Plane.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/Plane.cpp.o -MF CMakeFiles/main.dir/src/Plane.cpp.o.d -o CMakeFiles/main.dir/src/Plane.cpp.o -c /home/luis/Programming/computer_graphics/raycasting/src/Plane.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/fernanda/Programming/computacao_grafica/raycasting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/main.dir/src/Plane.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/Plane.cpp.o -MF CMakeFiles/main.dir/src/Plane.cpp.o.d -o CMakeFiles/main.dir/src/Plane.cpp.o -c /home/fernanda/Programming/computacao_grafica/raycasting/src/Plane.cpp
 
 CMakeFiles/main.dir/src/Plane.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/Plane.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/luis/Programming/computer_graphics/raycasting/src/Plane.cpp > CMakeFiles/main.dir/src/Plane.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/fernanda/Programming/computacao_grafica/raycasting/src/Plane.cpp > CMakeFiles/main.dir/src/Plane.cpp.i
 
 CMakeFiles/main.dir/src/Plane.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/Plane.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/luis/Programming/computer_graphics/raycasting/src/Plane.cpp -o CMakeFiles/main.dir/src/Plane.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/fernanda/Programming/computacao_grafica/raycasting/src/Plane.cpp -o CMakeFiles/main.dir/src/Plane.cpp.s
 
 CMakeFiles/main.dir/src/MirrorSphere.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/MirrorSphere.cpp.o: ../src/MirrorSphere.cpp
 CMakeFiles/main.dir/src/MirrorSphere.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/luis/Programming/computer_graphics/raycasting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/main.dir/src/MirrorSphere.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/MirrorSphere.cpp.o -MF CMakeFiles/main.dir/src/MirrorSphere.cpp.o.d -o CMakeFiles/main.dir/src/MirrorSphere.cpp.o -c /home/luis/Programming/computer_graphics/raycasting/src/MirrorSphere.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/fernanda/Programming/computacao_grafica/raycasting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/main.dir/src/MirrorSphere.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/MirrorSphere.cpp.o -MF CMakeFiles/main.dir/src/MirrorSphere.cpp.o.d -o CMakeFiles/main.dir/src/MirrorSphere.cpp.o -c /home/fernanda/Programming/computacao_grafica/raycasting/src/MirrorSphere.cpp
 
 CMakeFiles/main.dir/src/MirrorSphere.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/MirrorSphere.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/luis/Programming/computer_graphics/raycasting/src/MirrorSphere.cpp > CMakeFiles/main.dir/src/MirrorSphere.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/fernanda/Programming/computacao_grafica/raycasting/src/MirrorSphere.cpp > CMakeFiles/main.dir/src/MirrorSphere.cpp.i
 
 CMakeFiles/main.dir/src/MirrorSphere.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/MirrorSphere.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/luis/Programming/computer_graphics/raycasting/src/MirrorSphere.cpp -o CMakeFiles/main.dir/src/MirrorSphere.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/fernanda/Programming/computacao_grafica/raycasting/src/MirrorSphere.cpp -o CMakeFiles/main.dir/src/MirrorSphere.cpp.s
+
+CMakeFiles/main.dir/src/Cylinder.cpp.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/src/Cylinder.cpp.o: ../src/Cylinder.cpp
+CMakeFiles/main.dir/src/Cylinder.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/fernanda/Programming/computacao_grafica/raycasting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/main.dir/src/Cylinder.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/Cylinder.cpp.o -MF CMakeFiles/main.dir/src/Cylinder.cpp.o.d -o CMakeFiles/main.dir/src/Cylinder.cpp.o -c /home/fernanda/Programming/computacao_grafica/raycasting/src/Cylinder.cpp
+
+CMakeFiles/main.dir/src/Cylinder.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/Cylinder.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/fernanda/Programming/computacao_grafica/raycasting/src/Cylinder.cpp > CMakeFiles/main.dir/src/Cylinder.cpp.i
+
+CMakeFiles/main.dir/src/Cylinder.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/Cylinder.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/fernanda/Programming/computacao_grafica/raycasting/src/Cylinder.cpp -o CMakeFiles/main.dir/src/Cylinder.cpp.s
 
 # Object files for target main
 main_OBJECTS = \
@@ -190,7 +204,8 @@ main_OBJECTS = \
 "CMakeFiles/main.dir/src/Color.cpp.o" \
 "CMakeFiles/main.dir/src/Material.cpp.o" \
 "CMakeFiles/main.dir/src/Plane.cpp.o" \
-"CMakeFiles/main.dir/src/MirrorSphere.cpp.o"
+"CMakeFiles/main.dir/src/MirrorSphere.cpp.o" \
+"CMakeFiles/main.dir/src/Cylinder.cpp.o"
 
 # External object files for target main
 main_EXTERNAL_OBJECTS =
@@ -203,9 +218,10 @@ main: CMakeFiles/main.dir/src/Color.cpp.o
 main: CMakeFiles/main.dir/src/Material.cpp.o
 main: CMakeFiles/main.dir/src/Plane.cpp.o
 main: CMakeFiles/main.dir/src/MirrorSphere.cpp.o
+main: CMakeFiles/main.dir/src/Cylinder.cpp.o
 main: CMakeFiles/main.dir/build.make
 main: CMakeFiles/main.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/luis/Programming/computer_graphics/raycasting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/fernanda/Programming/computacao_grafica/raycasting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable main"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/main.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -217,6 +233,6 @@ CMakeFiles/main.dir/clean:
 .PHONY : CMakeFiles/main.dir/clean
 
 CMakeFiles/main.dir/depend:
-	cd /home/luis/Programming/computer_graphics/raycasting/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/luis/Programming/computer_graphics/raycasting /home/luis/Programming/computer_graphics/raycasting /home/luis/Programming/computer_graphics/raycasting/build /home/luis/Programming/computer_graphics/raycasting/build /home/luis/Programming/computer_graphics/raycasting/build/CMakeFiles/main.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/fernanda/Programming/computacao_grafica/raycasting/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/fernanda/Programming/computacao_grafica/raycasting /home/fernanda/Programming/computacao_grafica/raycasting /home/fernanda/Programming/computacao_grafica/raycasting/build /home/fernanda/Programming/computacao_grafica/raycasting/build /home/fernanda/Programming/computacao_grafica/raycasting/build/CMakeFiles/main.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/main.dir/depend
 

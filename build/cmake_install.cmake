@@ -1,4 +1,4 @@
-# Install script for directory: /home/luis/Programming/computer_graphics/raycasting
+# Install script for directory: /home/fernanda/Programming/computacao_grafica/raycasting
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/luis/Programming/computer_graphics/raycasting/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/fernanda/Programming/computacao_grafica/raycasting/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

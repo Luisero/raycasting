@@ -1,9 +1,9 @@
 CMakeFiles/main.dir/src/Sphere.cpp.o: \
- /home/luis/Programming/computer_graphics/raycasting/src/Sphere.cpp \
+ /home/fernanda/Programming/computacao_grafica/raycasting/src/Sphere.cpp \
  /usr/include/stdc-predef.h \
- /home/luis/Programming/computer_graphics/raycasting/src/../include/Sphere.hpp \
- /home/luis/Programming/computer_graphics/raycasting/src/../include/./Material.hpp \
- /home/luis/Programming/computer_graphics/raycasting/src/../include/./Color.hpp \
+ /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/Sphere.hpp \
+ /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/./Material.hpp \
+ /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/./Color.hpp \
  /usr/include/c++/11/algorithm /usr/include/c++/11/utility \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -102,10 +102,10 @@ CMakeFiles/main.dir/src/Sphere.cpp.o: \
  /usr/include/c++/11/bits/stl_bvector.h \
  /usr/include/c++/11/bits/vector.tcc \
  /usr/include/c++/11/pstl/execution_defs.h \
- /home/luis/Programming/computer_graphics/raycasting/src/../include/./Object.hpp \
- /home/luis/Programming/computer_graphics/raycasting/src/../include/././Material.hpp \
- /home/luis/Programming/computer_graphics/raycasting/src/../include/././Point.hpp \
- /home/luis/Programming/computer_graphics/raycasting/src/../include/./././Vector.hpp \
+ /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/./Object.hpp \
+ /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/././Material.hpp \
+ /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/././Point.hpp \
+ /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/./././Vector.hpp \
  /usr/include/c++/11/cmath /usr/include/math.h \
  /usr/include/x86_64-linux-gnu/bits/math-vector.h \
  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
@@ -129,10 +129,10 @@ CMakeFiles/main.dir/src/Sphere.cpp.o: \
  /usr/include/c++/11/tr1/poly_hermite.tcc \
  /usr/include/c++/11/tr1/poly_laguerre.tcc \
  /usr/include/c++/11/tr1/riemann_zeta.tcc \
- /home/luis/Programming/computer_graphics/raycasting/src/../include/././Ray.hpp \
- /home/luis/Programming/computer_graphics/raycasting/src/../include/./././Point.hpp \
- /home/luis/Programming/computer_graphics/raycasting/src/../include/././Vector.hpp \
- /home/luis/Programming/computer_graphics/raycasting/src/../include/././Color.hpp \
+ /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/././Ray.hpp \
+ /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/./././Point.hpp \
+ /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/././Vector.hpp \
+ /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/././Color.hpp \
  /usr/include/c++/11/memory \
  /usr/include/c++/11/bits/stl_raw_storage_iter.h \
  /usr/include/c++/11/bits/align.h /usr/include/c++/11/bit \
@@ -176,6 +176,6 @@ CMakeFiles/main.dir/src/Sphere.cpp.o: \
  /usr/include/c++/11/bits/atomic_lockfree_defines.h \
  /usr/include/c++/11/backward/auto_ptr.h \
  /usr/include/c++/11/pstl/glue_memory_defs.h \
- /home/luis/Programming/computer_graphics/raycasting/src/../include/Vector.hpp \
- /home/luis/Programming/computer_graphics/raycasting/src/../include/Material.hpp \
- /home/luis/Programming/computer_graphics/raycasting/src/../include/Vector.hpp
+ /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/Vector.hpp \
+ /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/Material.hpp \
+ /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/Vector.hpp

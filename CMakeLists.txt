@@ -10,5 +10,6 @@ add_executable(main
         src/Material.cpp
         src/Plane.cpp
         src/MirrorSphere.cpp
+        src/Cylinder.cpp
       )
 target_include_directories(main PRIVATE include)

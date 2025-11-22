@@ -1,8 +1,8 @@
 CMakeFiles/main.dir/src/Material.cpp.o: \
- /home/luis/Programming/computer_graphics/raycasting/src/Material.cpp \
+ /home/fernanda/Programming/computacao_grafica/raycasting/src/Material.cpp \
  /usr/include/stdc-predef.h \
- /home/luis/Programming/computer_graphics/raycasting/src/../include/Material.hpp \
- /home/luis/Programming/computer_graphics/raycasting/src/../include/Color.hpp \
+ /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/Material.hpp \
+ /home/fernanda/Programming/computacao_grafica/raycasting/src/../include/Color.hpp \
  /usr/include/c++/11/algorithm /usr/include/c++/11/utility \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \

@@ -5,7 +5,8 @@
 #include "../include/Vector.hpp"
 #include "../include/Plane.hpp"
 #include "../include/MirrorSphere.hpp"
-#include "../include/Object.hpp" // <-- Inclui este (contém a declaração de getIntersectedObject)
+#include "../include/Object.hpp" 
+#include "../include/Cylinder.hpp"
 #include <algorithm>
 #include <vector>
 #include <cmath>
@@ -17,11 +18,11 @@
 
 // --- CONSTANTS ---
 const float windowWidth = 2.f, windowHeight = 1.5f;
-const int numCols = 2.f * 400, numRows = 1.5 * 400;
+const int numCols = windowWidth * 400, numRows = windowHeight * 400;
 float Dx = windowWidth / numCols;
 float Dy = windowHeight / numRows;
 float viewplaneDistance = 10;
-const int FRAMES_AMOUNT = 30*1;
+const int FRAMES_AMOUNT = 30*5;
 
 Point observerPosition(0, 0, 0, 1);
 
@@ -90,27 +91,36 @@ int main()
         sphereRadius,
         matRed));
 
+    Point cylinderBase = Point(-.5f, -sphereRadius, -viewplaneDistance , 1.0f);
+    Vector4 cylinderAxis = Vector4(0.0f, 1.0f, 0.0f, 0.0f); // Apontando ao longo do eixo X
+    float cylinderRadius = 0.1f;
+    float cylinderHeight = 2.0f;
+
+    objects.push_back(std::make_unique<Cylinder>(
+      cylinderBase, cylinderAxis, cylinderRadius, cylinderHeight, matPink // Usando matFloor
+  ));
+
 objects.push_back(std::make_unique<MirrorSphere>(
         Point(0,0.f,-viewplaneDistance ,1)  ,
         sphereRadius,
         matRed));    
 
-for (int i = 1; i <= 5; i++)
-{
-  int r = static_cast<int>(std::sin(0.6f * i + 0.0f) * 127 + 128);
-    int g = static_cast<int>(std::sin(0.6f * i + 2.0f) * 127 + 128);
-    int b = static_cast<int>(std::sin(0.6f * i + 4.0f) * 127 + 128);
+// for (int i = 1; i <= 5; i++)
+// {
+//   int r = static_cast<int>(std::sin(0.6f * i + 0.0f) * 127 + 128);
+//     int g = static_cast<int>(std::sin(0.6f * i + 2.0f) * 127 + 128);
+//     int b = static_cast<int>(std::sin(0.6f * i + 4.0f) * 127 + 128);
 
-    // 2. Crie um material único para esta esfera
-    Material matRandom(Color(r/20, g/20, b/20), // Ka (ambiente escuro)
-                         Color(r, g, b),         // Kd (a cor principal)
-                         Color(255, 255, 255), // Ks (brilho branco)
-                         128.0f);
-  objects.push_back(std::make_unique<Sphere>(
-        Point( -0.5f+ (1.f/i), -0.2f, -viewplaneDistance + 5 ,1),
-        sphereRadius/4,
-        matRandom));
-}
+//     // 2. Crie um material único para esta esfera
+//     Material matRandom(Color(r/20, g/20, b/20), // Ka (ambiente escuro)
+//                          Color(r, g, b),         // Kd (a cor principal)
+//                          Color(255, 255, 255), // Ks (brilho branco)
+//                          128.0f);
+//   objects.push_back(std::make_unique<Sphere>(
+//         Point( -0.5f+ (1.f/i), -0.2f, -viewplaneDistance + 5 ,1),
+//         sphereRadius/4,
+//         matRandom));
+// }
 
   Point floorPoint(0.f, -sphereRadius * 2.f, 0.f, 1.f);
   Vector4 floorNormal(0.f, 1.f, 0.f, 0.f);
@@ -123,6 +133,8 @@ for (int i = 1; i <= 5; i++)
   // --- MAIN LOOP ---
   for (int i = 0; i < FRAMES_AMOUNT; i++)
   {
+    system("clear");
+    std::cout << "Rendering [ " << i << " ] frame.\n";
     time += 0.1;
     
     std::string frametitle = "image";
@@ -148,6 +160,13 @@ for (int i = 1; i <= 5; i++)
         {
           sphere->center.y += sin(time + j) / 150;
           sphere->center.z += cos(time + j) / 10;
+        }
+        if (Cylinder *cylinder = dynamic_cast<Cylinder *>(objects[j].get()))
+        {
+          cylinder->axis.x += sin(time) / 100;
+          cylinder->axis.z += cos(time) / 100;
+          cylinder->axis.y += sin(time) / 100;
+          cylinder->center.x -= sin(time) / 100;
         }
       }
       lightPosition.y -= 0.001f;
