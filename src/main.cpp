@@ -21,11 +21,11 @@
 
 // --- CONSTANTS ---
 const float windowWidth = 2.f, windowHeight = 1.5f;
-const int numCols = windowWidth * 400, numRows = windowHeight * 400;
+const int numCols = windowWidth * 200, numRows = windowHeight * 200;
 float Dx = windowWidth / numCols;
 float Dy = windowHeight / numRows;
 float viewplaneDistance = 10;
-const int FRAMES_AMOUNT = 30;
+const int FRAMES_AMOUNT = 1;
 
 Point observerPosition(0, 0, 0, 1);
 
@@ -81,9 +81,9 @@ int main() {
       64.0f                 // Shininess (Concentração do brilho)
   );
   // 1. Carrega o objeto (ele vai aparecer na origem 0,0,0 gigante)
-  cubeMesh.loadOBJ("cube.obj", objects, matCube);
-  Matrix4 setupMatrix = Matrix4::translate(0.5f, 0.5f, -viewplaneDistance) *
-                        Matrix4::scale(0.5f, 0.5f, 0.5f) * Matrix4::rotateX(3);
+  cubeMesh.loadOBJ("bunny.obj", objects, matCube);
+  Matrix4 setupMatrix =
+      Matrix4::translate(0.5f, 0.5f, -viewplaneDistance) * Matrix4::rotateX(3);
   cubeMesh.applyTransform(setupMatrix);
   Point cylinderBase = Point(-.5f, -sphereRadius, -viewplaneDistance, 1.0f);
   Vector4 cylinderAxis =
