@@ -11,5 +11,8 @@ add_executable(main
         src/Plane.cpp
         src/MirrorSphere.cpp
         src/Cylinder.cpp
+        src/Triangle.cpp
+        src/Mesh.cpp
+        src/Matrix4.cpp
       )
 target_include_directories(main PRIVATE include)
