@@ -27,13 +27,66 @@ const int numRows = windowHeight * 300; // ~450 px
 float Dx = windowWidth / numCols;
 float Dy = windowHeight / numRows;
 float viewplaneDistance = 10;
-const int FRAMES_AMOUNT = 30*5; // 3 segundos de animação (30 * 3)
+const int FRAMES_AMOUNT = 30*6; // 3 segundos de animação (30 * 3)
 
 Point observerPosition(0, 0, 0, 1);
 
 Point lightPosition(-1.f, 2.0f, -viewplaneDistance / 2, 1.0f);
 Color lightIntensity(255, 255, 255);
 Color ambientLightIntensity(80, 80, 80);
+
+void IMG_SaveBMP(uint32_t* pixels, const char* filename, int width, int height)
+{
+    std::ofstream outFile(filename, std::ios::binary);
+
+    // BMP header
+    const uint32_t fileSize = 54 + width * height * 4; // 54 is the size of BMP header
+
+    uint8_t header[54] = {
+        'B','M',                           // Signature
+        static_cast<uint8_t>(fileSize),    // File size in bytes
+        static_cast<uint8_t>(fileSize >> 8),
+        static_cast<uint8_t>(fileSize >> 16),
+        static_cast<uint8_t>(fileSize >> 24),
+        0,0,0,0,                           // Reserved
+        54,0,0,0,                          // Offset to pixel data
+        40,0,0,0,                          // Header size
+        static_cast<uint8_t>(width),       // Image width
+        static_cast<uint8_t>(width >> 8),
+        static_cast<uint8_t>(width >> 16),
+        static_cast<uint8_t>(width >> 24),
+        static_cast<uint8_t>(height),      // Image height
+        static_cast<uint8_t>(height >> 8),
+        static_cast<uint8_t>(height >> 16),
+        static_cast<uint8_t>(height >> 24),
+        1,0,                              // Planes
+        24,0,                             // Bits per pixel (24 = RGB)
+        0,0,0,0,                          // Compression
+        0,0,0,0,                          // Image size (unspecified)
+        0,0,0,0,                          // X pixels per meter (unspecified)
+        0,0,0,0,                          // Y pixels per meter (unspecified)
+        0,0,0,0,                          // Colors used (unspecified)
+        0,0,0,0                           // Important colors (unspecified)
+    };
+
+    outFile.write(reinterpret_cast<char*>(header), 54); // Write header
+
+    // Write pixel data
+    for (int i = height - 1; i >= 0; --i) {
+        for (int j = 0; j < width; ++j) {
+            uint32_t pixel = pixels[i * width + j];
+            uint8_t r = (pixel >> 24) & 0xFF;
+            uint8_t g = (pixel >> 16) & 0xFF;
+            uint8_t b = (pixel >>  8) & 0xFF;
+
+            outFile.write(reinterpret_cast<const char*>(&b), 1);
+            outFile.write(reinterpret_cast<const char*>(&g), 1);
+            outFile.write(reinterpret_cast<const char*>(&r), 1);
+        }
+    }
+
+    outFile.close();
+}
 
 void convertDisplayToWindow(int display_x, int display_y, float &ndc_x,
                             float &ndc_y) {
@@ -55,8 +108,8 @@ int main() {
   Material matMirror(Color(0, 0, 0), Color(0, 0, 0), Color(0, 0, 0), 128.f);
   
   Material matCube(
-      Color(28, 14, 4),     // Ka (Ambiente: marrom escuro)
-      Color(139, 69, 19),   // Kd (Difuso: SaddleBrown)
+      Color(93, 99, 107),     // Ka (Ambiente: marrom escuro)
+      Color(185, 192, 201),   // Kd (Difuso: SaddleBrown)
       Color(255, 255, 255), // Ks (Branco)
       64.0f                 // Shininess
   );
@@ -73,10 +126,12 @@ int main() {
   Mesh* bunnyMesh = meshPtr.get(); 
 
   // 3. Carregamos o arquivo
-  if(bunnyMesh->loadOBJ("saomiguel.obj", matCube)) {
+  if(bunnyMesh->loadOBJ("bunny.obj", matCube)) {
       // Configuração inicial
-      Matrix4 setupMatrix = Matrix4::translate(0.f, 0.f, -viewplaneDistance * 0.9) * Matrix4::scale(2.f, 2.f, 2.f);
+      Matrix4 setupMatrix = Matrix4::scale(3,3,3) * Matrix4::translate(0, 0.f, -viewplaneDistance*.3f);
       bunnyMesh->applyTransform(setupMatrix);
+
+
       
       // 4. Movemos a posse da malha para a lista de objetos
       objects.push_back(std::move(meshPtr));
@@ -86,7 +141,7 @@ int main() {
 
   // --- OUTROS OBJETOS ---
   objects.push_back(std::make_unique<MirrorSphere>(
-      Point(-0.5f, 0.f, -viewplaneDistance * .9f, 1), sphereRadius, matRed));
+      Point(-0.5f, 0.f, -viewplaneDistance  , 1), sphereRadius, matRed));
 
   Point floorPoint(0.f, -sphereRadius * 2.f, 0.f, 1.f);
   Vector4 floorNormal(0.f, 1.f, 0.f, 0.f);
@@ -94,7 +149,7 @@ int main() {
   
   Point wallPoint(0.f, 0.f, -viewplaneDistance * 2, 1.f);
   Vector4 wallNormal(0, 0, 1, 0);
-  objects.push_back(std::make_unique<Plane>(wallPoint, wallNormal, matWall));
+  //objects.push_back(std::make_unique<Plane>(wallPoint, wallNormal, matWall));
 
     
   // --- LOOP PRINCIPAL ---
@@ -115,8 +170,9 @@ int main() {
       // Objetos simples
       for (const auto& obj : objects) {
         if (!obj) continue;
-        if (Sphere *sphere = dynamic_cast<Sphere *>(obj.get())) {
-           // Exemplo: sphere->center.y += sin(time + j) / 150;
+        if (MirrorSphere *mirrorSphere = dynamic_cast<MirrorSphere *>(obj.get())) {
+           // Exemplo: MirrorSphere->center.y += sin(time + j) / 150;
+           mirrorSphere->center.z += sin(time)/10;
         }
         // (Adicione lógica para Cylinder se tiver)
       }

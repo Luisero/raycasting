@@ -144,7 +144,7 @@ bool Mesh::loadOBJ(const std::string& filename, Material mat) {
             }
         }
     }
-    
+    std::cout << "Loaded " << triangles.size() << " triangles.\n";
     calculateBounds(); // IMPORTANTE: Calcular a caixa assim que carregar!
     return true;
 }
