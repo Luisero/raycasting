@@ -16,18 +16,18 @@
 #include <fstream>
 #include <iostream>
 #include <memory>
-#include <vector>
 #include <omp.h> // Biblioteca OpenMP
+#include <vector>
 
 // --- CONSTANTES ---
 const float windowWidth = 2.f, windowHeight = 1.5f;
 // Aumentei um pouco a resolução baseada na sua lógica
-const int numCols = windowWidth * 300; // ~600 px
-const int numRows = windowHeight * 300; // ~450 px
+const int numCols = windowWidth * 100;  // ~600 px
+const int numRows = windowHeight * 100; // ~450 px
 float Dx = windowWidth / numCols;
 float Dy = windowHeight / numRows;
 float viewplaneDistance = 10;
-const int FRAMES_AMOUNT = 30*6; // 3 segundos de animação (30 * 3)
+const int FRAMES_AMOUNT = 30 * 6; // 3 segundos de animação (30 * 3)
 
 Point observerPosition(0, 0, 0, 1);
 
@@ -35,57 +35,88 @@ Point lightPosition(-1.f, 2.0f, -viewplaneDistance / 2, 1.0f);
 Color lightIntensity(255, 255, 255);
 Color ambientLightIntensity(80, 80, 80);
 
-void IMG_SaveBMP(uint32_t* pixels, const char* filename, int width, int height)
-{
-    std::ofstream outFile(filename, std::ios::binary);
+void IMG_SaveBMP(uint32_t *pixels, const char *filename, int width,
+                 int height) {
+  std::ofstream outFile(filename, std::ios::binary);
 
-    // BMP header
-    const uint32_t fileSize = 54 + width * height * 4; // 54 is the size of BMP header
+  // BMP header
+  const uint32_t fileSize =
+      54 + width * height * 4; // 54 is the size of BMP header
 
-    uint8_t header[54] = {
-        'B','M',                           // Signature
-        static_cast<uint8_t>(fileSize),    // File size in bytes
-        static_cast<uint8_t>(fileSize >> 8),
-        static_cast<uint8_t>(fileSize >> 16),
-        static_cast<uint8_t>(fileSize >> 24),
-        0,0,0,0,                           // Reserved
-        54,0,0,0,                          // Offset to pixel data
-        40,0,0,0,                          // Header size
-        static_cast<uint8_t>(width),       // Image width
-        static_cast<uint8_t>(width >> 8),
-        static_cast<uint8_t>(width >> 16),
-        static_cast<uint8_t>(width >> 24),
-        static_cast<uint8_t>(height),      // Image height
-        static_cast<uint8_t>(height >> 8),
-        static_cast<uint8_t>(height >> 16),
-        static_cast<uint8_t>(height >> 24),
-        1,0,                              // Planes
-        24,0,                             // Bits per pixel (24 = RGB)
-        0,0,0,0,                          // Compression
-        0,0,0,0,                          // Image size (unspecified)
-        0,0,0,0,                          // X pixels per meter (unspecified)
-        0,0,0,0,                          // Y pixels per meter (unspecified)
-        0,0,0,0,                          // Colors used (unspecified)
-        0,0,0,0                           // Important colors (unspecified)
-    };
+  uint8_t header[54] = {
+      'B',
+      'M',                            // Signature
+      static_cast<uint8_t>(fileSize), // File size in bytes
+      static_cast<uint8_t>(fileSize >> 8),
+      static_cast<uint8_t>(fileSize >> 16),
+      static_cast<uint8_t>(fileSize >> 24),
+      0,
+      0,
+      0,
+      0, // Reserved
+      54,
+      0,
+      0,
+      0, // Offset to pixel data
+      40,
+      0,
+      0,
+      0,                           // Header size
+      static_cast<uint8_t>(width), // Image width
+      static_cast<uint8_t>(width >> 8),
+      static_cast<uint8_t>(width >> 16),
+      static_cast<uint8_t>(width >> 24),
+      static_cast<uint8_t>(height), // Image height
+      static_cast<uint8_t>(height >> 8),
+      static_cast<uint8_t>(height >> 16),
+      static_cast<uint8_t>(height >> 24),
+      1,
+      0, // Planes
+      24,
+      0, // Bits per pixel (24 = RGB)
+      0,
+      0,
+      0,
+      0, // Compression
+      0,
+      0,
+      0,
+      0, // Image size (unspecified)
+      0,
+      0,
+      0,
+      0, // X pixels per meter (unspecified)
+      0,
+      0,
+      0,
+      0, // Y pixels per meter (unspecified)
+      0,
+      0,
+      0,
+      0, // Colors used (unspecified)
+      0,
+      0,
+      0,
+      0 // Important colors (unspecified)
+  };
 
-    outFile.write(reinterpret_cast<char*>(header), 54); // Write header
+  outFile.write(reinterpret_cast<char *>(header), 54); // Write header
 
-    // Write pixel data
-    for (int i = height - 1; i >= 0; --i) {
-        for (int j = 0; j < width; ++j) {
-            uint32_t pixel = pixels[i * width + j];
-            uint8_t r = (pixel >> 24) & 0xFF;
-            uint8_t g = (pixel >> 16) & 0xFF;
-            uint8_t b = (pixel >>  8) & 0xFF;
+  // Write pixel data
+  for (int i = height - 1; i >= 0; --i) {
+    for (int j = 0; j < width; ++j) {
+      uint32_t pixel = pixels[i * width + j];
+      uint8_t r = (pixel >> 24) & 0xFF;
+      uint8_t g = (pixel >> 16) & 0xFF;
+      uint8_t b = (pixel >> 8) & 0xFF;
 
-            outFile.write(reinterpret_cast<const char*>(&b), 1);
-            outFile.write(reinterpret_cast<const char*>(&g), 1);
-            outFile.write(reinterpret_cast<const char*>(&r), 1);
-        }
+      outFile.write(reinterpret_cast<const char *>(&b), 1);
+      outFile.write(reinterpret_cast<const char *>(&g), 1);
+      outFile.write(reinterpret_cast<const char *>(&r), 1);
     }
+  }
 
-    outFile.close();
+  outFile.close();
 }
 
 void convertDisplayToWindow(int display_x, int display_y, float &ndc_x,
@@ -98,20 +129,24 @@ void convertDisplayToWindow(int display_x, int display_y, float &ndc_x,
 
 int main() {
   float time = 0;
-  
+
   // --- MATERIAIS ---
-  Material matOrange(Color(10, 5, 2), Color(200, 100, 50), Color(255, 255, 255), 128.0f);
-  Material matPink(Color(10, 5, 2), Color(255, 141, 161), Color(255, 255, 255), 128.0f);
-  Material matRed(Color(10, 5, 2), Color(255, 10, 20), Color(255, 255, 255), 128.0f);
-  Material matFloor(Color(40, 90, 50), Color(35, 196, 12), Color(255, 255, 255), 255.f);
-  Material matWall(Color(40, 40, 50), Color(35, 100, 196), Color(255, 255, 255), 99999.f);
+  Material matOrange(Color(10, 5, 2), Color(200, 100, 50), Color(255, 255, 255),
+                     128.0f);
+  Material matPink(Color(10, 5, 2), Color(255, 141, 161), Color(255, 255, 255),
+                   128.0f);
+  Material matRed(Color(10, 5, 2), Color(255, 10, 20), Color(255, 255, 255),
+                  128.0f);
+  Material matFloor(Color(40, 90, 50), Color(35, 196, 12), Color(255, 255, 255),
+                    255.f);
+  Material matWall(Color(40, 40, 50), Color(35, 100, 196), Color(255, 255, 255),
+                   99999.f);
   Material matMirror(Color(0, 0, 0), Color(0, 0, 0), Color(0, 0, 0), 128.f);
-  
-  Material matCube(
-      Color(93, 99, 107),     // Ka (Ambiente: marrom escuro)
-      Color(185, 192, 201),   // Kd (Difuso: SaddleBrown)
-      Color(255, 255, 255), // Ks (Branco)
-      64.0f                 // Shininess
+
+  Material matCube(Color(93, 99, 107),   // Ka (Ambiente: marrom escuro)
+                   Color(185, 192, 201), // Kd (Difuso: SaddleBrown)
+                   Color(255, 255, 255), // Ks (Branco)
+                   64.0f                 // Shininess
   );
 
   float sphereRadius = .2f;
@@ -123,35 +158,35 @@ int main() {
   // 1. Criamos o ponteiro inteligente
   auto meshPtr = std::make_unique<Mesh>();
   // 2. Guardamos uma referência crua (raw pointer) para poder animar depois
-  Mesh* bunnyMesh = meshPtr.get(); 
+  Mesh *bunnyMesh = meshPtr.get();
 
   // 3. Carregamos o arquivo
-  if(bunnyMesh->loadOBJ("bunny.obj", matCube)) {
-      // Configuração inicial
-      Matrix4 setupMatrix = Matrix4::scale(3,3,3) * Matrix4::translate(0, 0.f, -viewplaneDistance*.3f);
-      bunnyMesh->applyTransform(setupMatrix);
+  if (bunnyMesh->loadOBJ("tree.obj", matCube)) {
+    // Configuração inicial
+    Matrix4 setupMatrix =
+        Matrix4::scale(.01f, .01f, .01f) *
+        Matrix4::translate(0, 0.f, -viewplaneDistance * 100.f);
+    //        Matrix4::rotateX(-3.14f);
+    bunnyMesh->applyTransform(setupMatrix);
 
-
-      
-      // 4. Movemos a posse da malha para a lista de objetos
-      objects.push_back(std::move(meshPtr));
+    // 4. Movemos a posse da malha para a lista de objetos
+    objects.push_back(std::move(meshPtr));
   } else {
-      std::cerr << "Erro: bunny.obj nao encontrado!\n";
+    std::cerr << "Erro: bunny.obj nao encontrado!\n";
   }
 
   // --- OUTROS OBJETOS ---
   objects.push_back(std::make_unique<MirrorSphere>(
-      Point(-0.5f, 0.f, -viewplaneDistance  , 1), sphereRadius, matRed));
+      Point(-0.5f, 0.f, -viewplaneDistance, 1), sphereRadius, matRed));
 
   Point floorPoint(0.f, -sphereRadius * 2.f, 0.f, 1.f);
   Vector4 floorNormal(0.f, 1.f, 0.f, 0.f);
   objects.push_back(std::make_unique<Plane>(floorPoint, floorNormal, matFloor));
-  
+
   Point wallPoint(0.f, 0.f, -viewplaneDistance * 2, 1.f);
   Vector4 wallNormal(0, 0, 1, 0);
-  //objects.push_back(std::make_unique<Plane>(wallPoint, wallNormal, matWall));
+  objects.push_back(std::make_unique<Plane>(wallPoint, wallNormal, matWall));
 
-    
   // --- LOOP PRINCIPAL ---
   for (int i = 0; i < FRAMES_AMOUNT; i++) {
     std::cout << "Rendering frame " << i << " / " << FRAMES_AMOUNT << "...\n";
@@ -166,13 +201,15 @@ int main() {
       image << "P3\n" << numCols << " " << numRows << "\n" << 255 << "\n";
 
       // --- 1. ANIMAÇÃO ---
-      
+
       // Objetos simples
-      for (const auto& obj : objects) {
-        if (!obj) continue;
-        if (MirrorSphere *mirrorSphere = dynamic_cast<MirrorSphere *>(obj.get())) {
-           // Exemplo: MirrorSphere->center.y += sin(time + j) / 150;
-           mirrorSphere->center.z += sin(time)/10;
+      for (const auto &obj : objects) {
+        if (!obj)
+          continue;
+        if (MirrorSphere *mirrorSphere =
+                dynamic_cast<MirrorSphere *>(obj.get())) {
+          // Exemplo: MirrorSphere->center.y += sin(time + j) / 150;
+          mirrorSphere->center.z += sin(time) / 10;
         }
         // (Adicione lógica para Cylinder se tiver)
       }
@@ -180,7 +217,7 @@ int main() {
       // Animação da Malha (usando o ponteiro que guardamos)
       if (bunnyMesh) {
         Point center = bunnyMesh->getCentroid();
-        
+
         // Pivot: Origem -> Gira -> Volta
         Matrix4 toOrigin = Matrix4::translate(-center.x, -center.y, -center.z);
         Matrix4 rotation = Matrix4::rotateY(0.05f); // Velocidade da rotação
@@ -194,17 +231,17 @@ int main() {
       lightPosition.y -= 0.001f;
       lightPosition.x += cos(time / 4) / 100;
 
-
       // --- 2. RENDERIZAÇÃO (PARALELO) ---
       std::vector<Color> frameBuffer(numCols * numRows);
 
-      // O OpenMP divide este loop entre os núcleos da CPU
-      #pragma omp parallel for schedule(dynamic)
+// O OpenMP divide este loop entre os núcleos da CPU
+#pragma omp parallel for schedule(dynamic)
       for (int l = 0; l < numRows; l++) {
         for (int c = 0; c < numCols; c++) {
           float x, y;
           convertDisplayToWindow(c, l, x, y);
-          Vector4 d(x - observerPosition.x, y - observerPosition.y, -viewplaneDistance, 0);
+          Vector4 d(x - observerPosition.x, y - observerPosition.y,
+                    -viewplaneDistance, 0);
 
           Ray ray(d.normalize(), observerPosition);
 
@@ -213,8 +250,9 @@ int main() {
           Object *closestObject = getIntersectedObject(ray, objects, closest_t);
 
           if (closestObject == nullptr) {
-            // CORREÇÃO: Escreve no buffer, NÃO no arquivo (evita conflito de threads)
-            frameBuffer[l * numCols + c] = Color(10, 50, 200); 
+            // CORREÇÃO: Escreve no buffer, NÃO no arquivo (evita conflito de
+            // threads)
+            frameBuffer[l * numCols + c] = Color(10, 50, 200);
           } else {
             Point P = ray.origin + (ray.dir * closest_t);
 
@@ -223,7 +261,7 @@ int main() {
                 observerPosition, objects);
 
             finalColor.clamp();
-            
+
             // Escreve no buffer
             frameBuffer[l * numCols + c] = finalColor;
           }
@@ -233,13 +271,13 @@ int main() {
       // --- 3. ESCRITA NO ARQUIVO (SERIAL) ---
       // Agora que o buffer está pronto, escrevemos tudo de uma vez
       for (int l = 0; l < numRows; l++) {
-          for (int c = 0; c < numCols; c++) {
-              Color& cor = frameBuffer[l * numCols + c];
-              image << cor.r << " " << cor.g << " " << cor.b << " ";
-          }
-          image << "\n";
+        for (int c = 0; c < numCols; c++) {
+          Color &cor = frameBuffer[l * numCols + c];
+          image << cor.r << " " << cor.g << " " << cor.b << " ";
+        }
+        image << "\n";
       }
-      
+
       image.close();
     }
   }

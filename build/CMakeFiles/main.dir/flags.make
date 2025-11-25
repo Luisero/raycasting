@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/fernanda/Programming/computacao_grafica/raycasting/include
+CXX_INCLUDES = -I/home/luis/Programming/computer_graphics/raycasting/include
 
-CXX_FLAGS = -O3 -DNDEBUG -fopenmp
+CXX_FLAGS = -Ofast -fopenmp
 

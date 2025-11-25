@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 project(main)
+add_compile_options(-Ofast)
 find_package(OpenMP REQUIRED)
 add_executable(main
         src/main.cpp
