@@ -1,3 +1,3 @@
-/home/luis/Programming/computer_graphics/raycasting/build/CMakeFiles/main.dir
-/home/luis/Programming/computer_graphics/raycasting/build/CMakeFiles/edit_cache.dir
-/home/luis/Programming/computer_graphics/raycasting/build/CMakeFiles/rebuild_cache.dir
+/home/luis/Programming/computacao_grafica/raycasting/build/CMakeFiles/main.dir
+/home/luis/Programming/computacao_grafica/raycasting/build/CMakeFiles/edit_cache.dir
+/home/luis/Programming/computacao_grafica/raycasting/build/CMakeFiles/rebuild_cache.dir
