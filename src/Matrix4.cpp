@@ -18,13 +18,20 @@ Matrix4 Matrix4::identity() {
   return Matrix4();
 }
 
-// Resto do arquivo continua igual...
 Vector4 Matrix4::operator*(const Vector4 &v) const {
-  Vector4 res;
-  res = cols[0] * v.x + cols[1] * v.y + cols[2] * v.z + cols[3] * v.w;
+  // Colunas[0..3] representam as 4 COLUNAS da matriz (Column-Major)
+  Vector4 res; // Assume inicialização (0, 0, 0, 0)
+
+  res.x = cols[0].x * v.x + cols[1].x * v.y + cols[2].x * v.z + cols[3].x * v.w;
+  res.y = cols[0].y * v.x + cols[1].y * v.y + cols[2].y * v.z + cols[3].y * v.w;
+  res.z = cols[0].z * v.x + cols[1].z * v.y + cols[2].z * v.z + cols[3].z * v.w;
+  res.w = cols[0].w * v.x + cols[1].w * v.y + cols[2].w * v.z + cols[3].w * v.w;
+
+  // Nota: Se sua Vector4::Vector4() não inicializar para zero, adicione res =
+  // Vector4(0,0,0,0); no início.
+
   return res;
 }
-
 Matrix4 Matrix4::operator*(const Matrix4 &other) const {
   Matrix4 res;
   res.cols[0] = (*this) * other.cols[0];

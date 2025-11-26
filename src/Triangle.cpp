@@ -89,7 +89,7 @@ Color Triangle::shade(const Ray &viewingRay, const Point &P,
   Vector4 lightDirection = lightVector.normalized(); // Usa a versão const-safe
 
   // --- Shadow Check ---
-  Point shadowRayOrigin = P + (N * 0.001f);
+  Point shadowRayOrigin = P + (N * 0.01f);
   Ray shadowRay(lightDirection, shadowRayOrigin);
 
   float shadow_t;

@@ -22,16 +22,16 @@
 // --- CONSTANTES ---
 const float windowWidth = 2.f, windowHeight = 1.5f;
 // Aumentei um pouco a resolução baseada na sua lógica
-const int numCols = windowWidth * 100;  // ~600 px
-const int numRows = windowHeight * 100; // ~450 px
+const int numCols = windowWidth * 50;  // ~600 px
+const int numRows = windowHeight * 50; // ~450 px
 float Dx = windowWidth / numCols;
 float Dy = windowHeight / numRows;
 float viewplaneDistance = 10;
-const int FRAMES_AMOUNT = 30 * 6; // 3 segundos de animação (30 * 3)
+const int FRAMES_AMOUNT = 1; // 3 segundos de animação (30 * 3)
 
 Point observerPosition(0, 0, 0, 1);
 
-Point lightPosition(-1.f, 2.0f, -viewplaneDistance / 2, 1.0f);
+Point lightPosition(-1.f, 1.0f, -viewplaneDistance / 4, 1.0f);
 Color lightIntensity(255, 255, 255);
 Color ambientLightIntensity(80, 80, 80);
 
@@ -77,14 +77,16 @@ int main() {
   Mesh *bunnyMesh = meshPtr.get();
 
   // 3. Carregamos o arquivo
-  if (bunnyMesh->loadOBJ("tree.obj", matCube)) {
+  if (bunnyMesh->loadOBJ("ourladuguadalupe.obj", matCube)) {
     // Configuração inicial
     Matrix4 setupMatrix =
-        Matrix4::scale(.01f, .01f, .01f) *
-        Matrix4::translate(0, 0.f, -viewplaneDistance * 100.f);
+        Matrix4::translate(-125.5f, -101.5f, -viewplaneDistance * 3.5f);
     //        Matrix4::rotateX(-3.14f);
     bunnyMesh->applyTransform(setupMatrix);
-
+    Point p = bunnyMesh->getCentroid();
+    bunnyMesh->applyTransform(Matrix4::translate(-p.x, -p.y, -p.z));
+    bunnyMesh->applyTransform(Matrix4::scale(.004f, .004f, .004f));
+    bunnyMesh->applyTransform(Matrix4::translate(p.x, p.y, p.z));
     // 4. Movemos a posse da malha para a lista de objetos
     objects.push_back(std::move(meshPtr));
   } else {
@@ -101,7 +103,8 @@ int main() {
 
   Point wallPoint(0.f, 0.f, -viewplaneDistance * 2, 1.f);
   Vector4 wallNormal(0, 0, 1, 0);
-  objects.push_back(std::make_unique<Plane>(wallPoint, wallNormal, matWall));
+  //  objects.push_back(std::make_unique<Plane>(wallPoint, wallNormal,
+  //  matWall));
 
   // --- LOOP PRINCIPAL ---
   for (int i = 0; i < FRAMES_AMOUNT; i++) {
