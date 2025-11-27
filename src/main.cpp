@@ -16,18 +16,18 @@
 #include <fstream>
 #include <iostream>
 #include <memory>
-#include <omp.h> // Biblioteca OpenMP
+#include <omp.h> 
 #include <vector>
 
 // --- CONSTANTES ---
 const float windowWidth = 2.f, windowHeight = 1.5f;
 // Aumentei um pouco a resolução baseada na sua lógica
-const int numCols = windowWidth * 50;  // ~600 px
-const int numRows = windowHeight * 50; // ~450 px
+const int numCols = windowWidth *200;  
+const int numRows = windowHeight * 200;
 float Dx = windowWidth / numCols;
 float Dy = windowHeight / numRows;
 float viewplaneDistance = 10;
-const int FRAMES_AMOUNT = 1; // 3 segundos de animação (30 * 3)
+const int FRAMES_AMOUNT = 30; 
 
 Point observerPosition(0, 0, 0, 1);
 

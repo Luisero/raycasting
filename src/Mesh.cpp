@@ -127,6 +127,7 @@ bool Mesh::loadOBJ(const std::string &filename, Material mat) {
       float x, y, z;
       ss >> x >> y >> z;
       temp_verts.push_back(Point(x, y, z, 1.0f));
+      this->vertices.push_back(Point(x, y, z, 1.0f));
     } else if (prefix == "f") {
       std::string s1, s2, s3;
       ss >> s1 >> s2 >> s3;
@@ -142,13 +143,12 @@ bool Mesh::loadOBJ(const std::string &filename, Material mat) {
       int i2 = getIndex(s2);
       int i3 = getIndex(s3);
 
-      if (i1 > 0 && i2 > 0 && i3 > 0 && i1 <= (int)temp_verts.size() &&
-          i2 <= (int)temp_verts.size() && i3 <= (int)temp_verts.size()) {
-        Point p1 = temp_verts[i1 - 1];
-        Point p2 =
-            temp_verts[i2 - 1]; // Corrigido typo temp_vertices -> temp_verts
-        Point p3 = temp_verts[i3 - 1];
-
+      if (i1 > 0 && i2 > 0 && i3 > 0 && i1 <= (int)this->vertices.size() &&
+          i2 <= (int)this->vertices.size() && i3 <= (int)this->vertices.size()) {
+        // CORREÇÃO: Pegue o endereço direto do vetor
+        Point* p1 = &this->vertices[i1 - 1];
+        Point* p2 = &this->vertices[i2 - 1];
+        Point* p3 = &this->vertices[i3 - 1];
         // Cria e guarda o triângulo DENTRO da mesh
         triangles.push_back(std::make_unique<Triangle>(p1, p2, p3, mat));
       }
@@ -173,7 +173,7 @@ void Mesh::calculateBounds() {
 
   for (const auto &tri : triangles) {
     // Testa os 3 vértices de cada triângulo
-    const Point *pts[] = {&tri->v0, &tri->v1, &tri->v2};
+    const Point *pts[] = {tri->v0, tri->v1, tri->v2};
     for (auto p : pts) {
       if (p->x < minX)
         minX = p->x;

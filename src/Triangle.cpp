@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <cmath>
 
-Triangle::Triangle(Point a, Point b, Point c, Material mat) {
+Triangle::Triangle(Point *a, Point *b, Point *c, Material mat) {
   this->v0 = a;
   this->v1 = b;
   this->v2 = c;
@@ -13,13 +13,13 @@ Triangle::Triangle(Point a, Point b, Point c, Material mat) {
   // Aresta 1: v1 - v0
   // Aresta 2: v2 - v0
   // Normal = Aresta1 X Aresta2 (Produto Vetorial)
-  Vector4 edge1 = v1 - v0;
-  Vector4 edge2 = v2 - v0;
+  Vector4 edge1 = *v1 - *v0;
+  Vector4 edge2 = *v2 - *v0;
   this->normal = edge1.cross(edge2).normalized();
 
   // Define um centro aproximado (baricentro) para a classe base, se necessário
-  this->center = Point((v0.x + v1.x + v2.x) / 3, (v0.y + v1.y + v2.y) / 3,
-                       (v0.z + v1.z + v2.z) / 3, 1.0f);
+  this->center = Point((v0->x + v1->x + v2->x) / 3, (v0->y + v1->y + v2->y) / 3,
+                       (v0->z + v1->z + v2->z) / 3, 1.0f);
 }
 
 Vector4 Triangle::getNormal(Point collide) {
@@ -31,10 +31,11 @@ Vector4 Triangle::getNormal(Point collide) {
 float Triangle::intersect(Ray ray) {
   if (ray.dir.dot(this->normal) >= 0)
     return -1;
-  const float EPSILON = 0.0000001f;
+  //const float EPSILON = 0.0000001f;
+  const float EPSILON = 0.0f;
 
-  Vector4 edge1 = v1 - v0;
-  Vector4 edge2 = v2 - v0;
+  Vector4 edge1 = *v1 - *v0;
+  Vector4 edge2 = *v2 - *v0;
 
   Vector4 h = ray.dir.cross(edge2);
   float a = edge1.dot(h);
@@ -45,7 +46,7 @@ float Triangle::intersect(Ray ray) {
   }
 
   float f = 1.0f / a;
-  Vector4 s = ray.origin - v0;
+  Vector4 s = ray.origin - *v0;
   float u = f * s.dot(h);
 
   // Verifica se a interseção está fora do triângulo (coord. baricêntrica u)
@@ -128,20 +129,20 @@ Color Triangle::shade(const Ray &viewingRay, const Point &P,
 void Triangle::applyTransform(const Matrix4 &m) {
   // 1. Transforma os 3 vértices
   // O operador * (Matriz * Vetor) já lida com Point corretamente se w=1
-  Vector4 newV0 = m * Vector4(v0.x, v0.y, v0.z, 1.0f);
-  Vector4 newV1 = m * Vector4(v1.x, v1.y, v1.z, 1.0f);
-  Vector4 newV2 = m * Vector4(v2.x, v2.y, v2.z, 1.0f);
+  Vector4 newV0 = m * Vector4(v0->x, v0->y, v0->z, 1.0f);
+  Vector4 newV1 = m * Vector4(v1->x, v1->y, v1->z, 1.0f);
+  Vector4 newV2 = m * Vector4(v2->x, v2->y, v2->z, 1.0f);
 
-  v0 = Point(newV0.x, newV0.y, newV0.z, 1.0f);
-  v1 = Point(newV1.x, newV1.y, newV1.z, 1.0f);
-  v2 = Point(newV2.x, newV2.y, newV2.z, 1.0f);
+  v0 = new Point(newV0.x, newV0.y, newV0.z, 1.0f);
+  v1 = new Point(newV1.x, newV1.y, newV1.z, 1.0f);
+  v2 = new Point(newV2.x, newV2.y, newV2.z, 1.0f);
 
   // 2. Recalcula a Normal (a rotação pode ter mudado a orientação)
-  Vector4 edge1 = v1 - v0;
-  Vector4 edge2 = v2 - v0;
+  Vector4 edge1 = *v1 - *v0;
+  Vector4 edge2 = *v2 - *v0;
   this->normal = edge1.cross(edge2).normalized();
 
   // 3. Recalcula o Centro (para animações genéricas que usem obj->center)
-  this->center = Point((v0.x + v1.x + v2.x) / 3.0f, (v0.y + v1.y + v2.y) / 3.0f,
-                       (v0.z + v1.z + v2.z) / 3.0f, 1.0f);
+  this->center = Point((v0->x + v1->x + v2->x) / 3.0f, (v0->y + v1->y + v2->y) / 3.0f,
+                       (v0->z + v1->z + v2->z) / 3.0f, 1.0f);
 }

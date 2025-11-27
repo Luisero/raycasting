@@ -152,6 +152,9 @@ CMakeFiles/main.dir/src/main.cpp.o: \
  /home/luis/Programming/computacao_grafica/raycasting/src/../include/Material.hpp \
  /home/luis/Programming/computacao_grafica/raycasting/src/../include/Matrix4.hpp \
  /home/luis/Programming/computacao_grafica/raycasting/src/../include/Mesh.hpp \
+ /home/luis/Programming/computacao_grafica/raycasting/src/../include/Matrix4.hpp \
+ /home/luis/Programming/computacao_grafica/raycasting/src/../include/Object.hpp \
+ /home/luis/Programming/computacao_grafica/raycasting/src/../include/Triangle.hpp \
  /usr/include/c++/15/string /usr/include/c++/15/bits/char_traits.h \
  /usr/include/c++/15/bits/localefwd.h \
  /usr/include/c++/15/x86_64-redhat-linux/bits/c++locale.h \
@@ -173,9 +176,6 @@ CMakeFiles/main.dir/src/main.cpp.o: \
  /usr/include/asm-generic/errno-base.h /usr/include/bits/types/error_t.h \
  /usr/include/c++/15/bits/charconv.h \
  /usr/include/c++/15/bits/basic_string.tcc \
- /home/luis/Programming/computacao_grafica/raycasting/src/../include/Object.hpp \
- /home/luis/Programming/computacao_grafica/raycasting/src/../include/Triangle.hpp \
- /home/luis/Programming/computacao_grafica/raycasting/src/../include/Matrix4.hpp \
  /home/luis/Programming/computacao_grafica/raycasting/src/../include/MirrorSphere.hpp \
  /home/luis/Programming/computacao_grafica/raycasting/src/../include/Sphere.hpp \
  /home/luis/Programming/computacao_grafica/raycasting/src/../include/./Material.hpp \
