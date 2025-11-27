@@ -94,8 +94,8 @@ int main() {
   }
 
   // --- OUTROS OBJETOS ---
-  objects.push_back(std::make_unique<MirrorSphere>(
-      Point(-0.5f, 0.f, -viewplaneDistance, 1), sphereRadius, matRed));
+  //  objects.push_back(std::make_unique<MirrorSphere>(
+  //    Point(-0.5f, 0.f, -viewplaneDistance, 1), sphereRadius, matRed));
 
   Point floorPoint(0.f, -sphereRadius * 2.f, 0.f, 1.f);
   Vector4 floorNormal(0.f, 1.f, 0.f, 0.f);

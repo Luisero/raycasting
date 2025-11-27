@@ -29,6 +29,8 @@ Vector4 Triangle::getNormal(Point collide) {
 
 // --- Algoritmo Möller–Trumbore ---
 float Triangle::intersect(Ray ray) {
+  if (ray.dir.dot(this->normal) >= 0)
+    return -1;
   const float EPSILON = 0.0000001f;
 
   Vector4 edge1 = v1 - v0;
