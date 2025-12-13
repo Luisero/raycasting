@@ -82,17 +82,15 @@ Color Triangle::shade(const Ray &viewingRay, const Point &P,
                       const Color &ambientLightIntensity,
                       const Point &observerPosition,
                       const std::vector<std::unique_ptr<Object>> &allObjects) {
-  // ... (Coloque aqui o mesmo código de shade do Plane/Sphere) ...
-  // Lembre-se de usar this->getNormal(P)
 
   Material mat = this->material;
   Vector4 N = this->getNormal(P);
   N.normalize(); // N é uma cópia, pode modificar
-  if (viewingRay.dir.dot(N) > 0) {
-    N = N * -1.0f;
-    return Color(255, 0, 0); // <--- Descomente para ver os versos em
-    // VERMELHO
-  }
+                 /*  if (viewingRay.dir.dot(N) > 0) {
+                     N = N * -1.0f;
+                     return Color(255, 0, 0); // <--- Descomente para ver os versos em
+                     // VERMELHO
+                   }*/
   Color ambientColor = mat.Ka * ambientLightIntensity;
 
   Vector4 lightVector = (lightPosition - P);
@@ -131,8 +129,8 @@ Color Triangle::shade(const Ray &viewingRay, const Point &P,
 
   // Cor final é ambiente + (difusa + especular se não estiver na sombra)
   Color finalColor = ambientColor + diffuseColor + specularColor;
-  finalColor.r += (P.x * 30);
-  finalColor.clamp();
+  // finalColor.r += (P.x * 30);
+  //  finalColor.clamp();
   return finalColor;
 }
 

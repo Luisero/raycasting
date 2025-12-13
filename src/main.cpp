@@ -22,8 +22,8 @@
 // --- CONSTANTES ---
 const float windowWidth = 2.f, windowHeight = 1.5f;
 // Aumentei um pouco a resolução baseada na sua lógica
-const int numCols = windowWidth * 200;
-const int numRows = windowHeight * 200;
+const int numCols = windowWidth * 100;
+const int numRows = windowHeight * 100;
 float Dx = windowWidth / numCols;
 float Dy = windowHeight / numRows;
 float viewplaneDistance = 10;
@@ -81,10 +81,11 @@ int main() {
     // Configuração inicial
 
     bunnyMesh->applyTransform(
-        Matrix4::translate(.5f, 1.f, -viewplaneDistance * 2));
+        Matrix4::translate(0, -.3f, -viewplaneDistance *2));
     Point p = bunnyMesh->getCentroid();
     bunnyMesh->applyTransform(Matrix4::translate(-p.x, -p.y, -p.z));
-    bunnyMesh->applyTransform(Matrix4::scale(10.f, 10.f, 10.f));
+    //bunnyMesh->applyTransform(Matrix4::scale(1.f, 1.f, 1.f));
+    bunnyMesh->applyTransform(Matrix4::rotateY(3.14f));
     bunnyMesh->applyTransform(Matrix4::translate(p.x, p.y, p.z));
     // 4. Movemos a posse da malha para a lista de objetos
     objects.push_back(std::move(meshPtr));

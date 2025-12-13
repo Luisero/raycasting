@@ -132,76 +132,81 @@ bool Mesh::loadOBJ(const std::string &filename, Material mat) {
       ss >> u >> v;
       this->uvs.push_back(Vector2(u, v));
     } else if (prefix == "f") {
-      std::string s1, s2, s3;
-      ss >> s1 >> s2 >> s3;
+      std::vector<std::string> tokens;
+      std::string token;
 
-      // --- NOVA LÓGICA DE PARSER ---
-      // Função Lambda para extrair (Vértice) E (Textura) da string "v/vt/vn"
+      // 1. LÊ A LINHA INTEIRA (aceita 3, 4, 10 vértices...)
+      while (ss >> token) {
+        tokens.push_back(token);
+      }
+
+      // --- NOVA LÓGICA DE PARSER (Reutilizando sua lambda) ---
       auto parseToken = [](const std::string &token, int &vIdx, int &vtIdx) {
         size_t firstSlash = token.find('/');
         size_t secondSlash = token.find('/', firstSlash + 1);
 
-        // Pega o Vértice (Sempre antes da primeira barra)
         if (firstSlash == std::string::npos) {
-          vIdx = std::stoi(token); // Caso simples: "f 1"
-          vtIdx = 0;               // Sem textura
+          vIdx = std::stoi(token);
+          vtIdx = 0;
           return;
         }
         vIdx = std::stoi(token.substr(0, firstSlash));
 
-        // Pega a Textura (Entre a primeira e a segunda barra)
-        // Formatos possíveis: "1/5" ou "1/5/3"
         if (firstSlash != std::string::npos) {
-          // Verifica se tem algo entre as barras (para evitar caso "1//3")
           bool hasTexture = (secondSlash == std::string::npos) ||
                             (secondSlash > firstSlash + 1);
-
           if (hasTexture) {
-            // Se não tiver segunda barra, pega até o fim. Se tiver, pega até
-            // ela.
             size_t len = (secondSlash == std::string::npos)
                              ? std::string::npos
                              : (secondSlash - firstSlash - 1);
             vtIdx = std::stoi(token.substr(firstSlash + 1, len));
           } else {
-            vtIdx = 0; // Caso "1//3" (Vértice//Normal)
+            vtIdx = 0;
           }
         } else {
           vtIdx = 0;
         }
       };
 
-      int v1, vt1, v2, vt2, v3, vt3;
+      // 2. FAN TRIANGULATION: Transforma Quads em Triângulos
+      // Para um quadrado (A, B, C, D), cria triângulos (A, B, C) e (A, C, D)
+      for (size_t i = 2; i < tokens.size(); i++) {
+        int v1, vt1, v2, vt2, v3, vt3;
 
-      // Extrai os índices para os 3 pontos do triângulo
-      parseToken(s1, v1, vt1);
-      parseToken(s2, v2, vt2);
-      parseToken(s3, v3, vt3);
+        parseToken(tokens[0], v1, vt1);     // Pivô (Sempre o primeiro vértice)
+        parseToken(tokens[i - 1], v2, vt2); // Vértice Anterior
+        parseToken(tokens[i], v3, vt3);     // Vértice Atual
 
-      // Validação de segurança (se os índices existem nos vetores)
-      if (v1 > 0 && v1 <= (int)this->vertices.size() && v2 > 0 &&
-          v2 <= (int)this->vertices.size() && v3 > 0 &&
-          v3 <= (int)this->vertices.size()) {
+        // Validação de segurança
+        if (v1 > 0 && v1 <= (int)this->vertices.size() && v2 > 0 &&
+            v2 <= (int)this->vertices.size() && v3 > 0 &&
+            v3 <= (int)this->vertices.size()) {
 
-        // 1. Pega os Vértices (Geometria)
-        Point *p1 = &this->modelVertices[v1 - 1];
-        Point *p2 = &this->modelVertices[v2 - 1];
-        Point *p3 = &this->modelVertices[v3 - 1];
+          Point *p1 = &this->vertices[v1 - 1];
+          Point *p2 = &this->vertices[v2 - 1];
+          Point *p3 = &this->vertices[v3 - 1];
 
-        // 2. Pega as UVs (Textura)
-        // Se vt > 0, busca no vetor. Se for 0, usa padrão (0,0).
-        Vector2 t1 = (vt1 > 0 && vt1 <= this->uvs.size()) ? this->uvs[vt1 - 1]
-                                                          : Vector2(0, 0);
-        Vector2 t2 = (vt2 > 0 && vt2 <= this->uvs.size()) ? this->uvs[vt2 - 1]
-                                                          : Vector2(0, 0);
-        Vector2 t3 = (vt3 > 0 && vt3 <= this->uvs.size()) ? this->uvs[vt3 - 1]
-                                                          : Vector2(0, 0);
+          // --- CORREÇÃO DO BUG DOS PONTEIROS DE TEXTURA ---
+          // Você precisa passar o endereço de algo que EXISTE NA MEMÓRIA
+          // (dentro do vetor uvs), e não o endereço de uma variável local
+          // temporária.
 
-        // Cria o triângulo passando TUDO
-        // (Você precisa atualizar o construtor do Triangle para aceitar t1, t2,
-        // t3)
-        triangles.push_back(
-            std::make_unique<Triangle>(p1, p2, p3, &t1, &t2, &t3, mat));
+          static Vector2 defaultUV(
+              0, 0); // Um UV padrão seguro para apontar se não houver textura
+
+          Vector2 *t1 = (vt1 > 0 && vt1 <= (int)this->uvs.size())
+                            ? &this->uvs[vt1 - 1]
+                            : &defaultUV;
+          Vector2 *t2 = (vt2 > 0 && vt2 <= (int)this->uvs.size())
+                            ? &this->uvs[vt2 - 1]
+                            : &defaultUV;
+          Vector2 *t3 = (vt3 > 0 && vt3 <= (int)this->uvs.size())
+                            ? &this->uvs[vt3 - 1]
+                            : &defaultUV;
+
+          triangles.push_back(
+              std::make_unique<Triangle>(p1, p2, p3, t1, t2, t3, mat));
+        }
       }
     }
   }
