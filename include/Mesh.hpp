@@ -5,15 +5,16 @@
 #include "Object.hpp" // Herda de Object
 #include "Point.hpp"
 #include "Triangle.hpp" // Guarda Triangles
+#include <deque>
 #include <memory>
 #include <string>
 #include <vector>
-
 class Mesh : public Object {
 public:
   std::vector<std::unique_ptr<Triangle>> triangles;
-  std::vector<Point> vertices;
-
+  std::deque<Point> modelVertices;
+  std::deque<Point> vertices;
+  std::vector<Vector2> uvs;
   Point minBound;
   Point maxBound;
 

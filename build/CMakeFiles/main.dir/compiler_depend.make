@@ -618,6 +618,7 @@ CMakeFiles/main.dir/src/Mesh.cpp.o: /home/luis/Programming/computacao_grafica/ra
   /usr/include/c++/15/bits/cpp_type_traits.h \
   /usr/include/c++/15/bits/cxxabi_forced.h \
   /usr/include/c++/15/bits/cxxabi_init_exception.h \
+  /usr/include/c++/15/bits/deque.tcc \
   /usr/include/c++/15/bits/exception.h \
   /usr/include/c++/15/bits/exception_defines.h \
   /usr/include/c++/15/bits/exception_ptr.h \
@@ -657,6 +658,7 @@ CMakeFiles/main.dir/src/Mesh.cpp.o: /home/luis/Programming/computacao_grafica/ra
   /usr/include/c++/15/bits/stl_algobase.h \
   /usr/include/c++/15/bits/stl_bvector.h \
   /usr/include/c++/15/bits/stl_construct.h \
+  /usr/include/c++/15/bits/stl_deque.h \
   /usr/include/c++/15/bits/stl_function.h \
   /usr/include/c++/15/bits/stl_heap.h \
   /usr/include/c++/15/bits/stl_iterator.h \
@@ -690,6 +692,7 @@ CMakeFiles/main.dir/src/Mesh.cpp.o: /home/luis/Programming/computacao_grafica/ra
   /usr/include/c++/15/cwctype \
   /usr/include/c++/15/debug/assertions.h \
   /usr/include/c++/15/debug/debug.h \
+  /usr/include/c++/15/deque \
   /usr/include/c++/15/exception \
   /usr/include/c++/15/ext/aligned_buffer.h \
   /usr/include/c++/15/ext/alloc_traits.h \
@@ -2063,6 +2066,7 @@ CMakeFiles/main.dir/src/main.cpp.o: /home/luis/Programming/computacao_grafica/ra
   /usr/include/c++/15/bits/cpp_type_traits.h \
   /usr/include/c++/15/bits/cxxabi_forced.h \
   /usr/include/c++/15/bits/cxxabi_init_exception.h \
+  /usr/include/c++/15/bits/deque.tcc \
   /usr/include/c++/15/bits/exception.h \
   /usr/include/c++/15/bits/exception_defines.h \
   /usr/include/c++/15/bits/exception_ptr.h \
@@ -2101,6 +2105,7 @@ CMakeFiles/main.dir/src/main.cpp.o: /home/luis/Programming/computacao_grafica/ra
   /usr/include/c++/15/bits/stl_algobase.h \
   /usr/include/c++/15/bits/stl_bvector.h \
   /usr/include/c++/15/bits/stl_construct.h \
+  /usr/include/c++/15/bits/stl_deque.h \
   /usr/include/c++/15/bits/stl_function.h \
   /usr/include/c++/15/bits/stl_heap.h \
   /usr/include/c++/15/bits/stl_iterator.h \
@@ -2134,6 +2139,7 @@ CMakeFiles/main.dir/src/main.cpp.o: /home/luis/Programming/computacao_grafica/ra
   /usr/include/c++/15/cwctype \
   /usr/include/c++/15/debug/assertions.h \
   /usr/include/c++/15/debug/debug.h \
+  /usr/include/c++/15/deque \
   /usr/include/c++/15/exception \
   /usr/include/c++/15/ext/aligned_buffer.h \
   /usr/include/c++/15/ext/alloc_traits.h \
@@ -2326,6 +2332,12 @@ CMakeFiles/main.dir/src/Triangle.cpp.o:
 
 /usr/include/c++/15/istream:
 
+/usr/include/c++/15/ios:
+
+/usr/include/c++/15/fstream:
+
+/usr/include/c++/15/ext/string_conversions.h:
+
 /usr/include/bits/types/mbstate_t.h:
 
 /usr/include/bits/types/__mbstate_t.h:
@@ -2343,8 +2355,6 @@ CMakeFiles/main.dir/src/Triangle.cpp.o:
 /usr/include/bits/libm-simd-decl-stubs.h:
 
 /usr/include/c++/15/bits/ostream.h:
-
-/usr/include/c++/15/fstream:
 
 /usr/include/bits/fp-logb.h:
 
@@ -2415,8 +2425,6 @@ CMakeFiles/main.dir/src/Triangle.cpp.o:
 /usr/include/c++/15/cmath:
 
 /usr/include/asm-generic/errno-base.h:
-
-/usr/include/c++/15/ext/string_conversions.h:
 
 /usr/include/c++/15/x86_64-redhat-linux/bits/c++config.h:
 
@@ -2656,8 +2664,6 @@ CMakeFiles/main.dir/src/Cylinder.cpp.o:
 
 /usr/include/c++/15/bits/stl_iterator_base_types.h:
 
-/usr/include/c++/15/bits/stl_tempbuf.h:
-
 /usr/include/c++/15/bits/locale_facets.h:
 
 /usr/include/bits/types/wint_t.h:
@@ -2800,8 +2806,6 @@ CMakeFiles/main.dir/src/Material.cpp.o:
 
 /usr/include/linux/stddef.h:
 
-/usr/include/math.h:
-
 /usr/include/wctype.h:
 
 /usr/include/bits/fp-fast.h:
@@ -2864,6 +2868,10 @@ CMakeFiles/main.dir/src/Plane.cpp.o:
 
 /usr/include/c++/15/bits/cxxabi_forced.h:
 
+/usr/include/c++/15/bits/stl_tempbuf.h:
+
+/usr/include/c++/15/bits/deque.tcc:
+
 /usr/include/c++/15/bits/memoryfwd.h:
 
 /usr/include/c++/15/bits/fstream.tcc:
@@ -2878,6 +2886,10 @@ CMakeFiles/main.dir/src/main.cpp.o:
 
 /usr/include/c++/15/bits/sstream.tcc:
 
+/usr/include/math.h:
+
+/usr/include/c++/15/bits/stl_deque.h:
+
 /usr/include/bits/types/struct_tm.h:
 
 /usr/include/c++/15/bits/string_view.tcc:
@@ -2886,4 +2898,4 @@ CMakeFiles/main.dir/src/main.cpp.o:
 
 /usr/include/c++/15/cstdio:
 
-/usr/include/c++/15/ios:
+/usr/include/c++/15/deque:

@@ -10,8 +10,9 @@ class Triangle : public Object {
 public:
   Point *v0, *v1, *v2;
   Vector4 normal;
-
-  Triangle(Point *a, Point *b, Point *c, Material mat);
+  Vector2 *t1, *t2, *t3;
+  Triangle(Point *a, Point *b, Point *c, Vector2 *t1, Vector2 *t2, Vector2 *t3,
+           Material mat);
 
   virtual float intersect(Ray ray) override;
   virtual Vector4 getNormal(Point collide) override;

@@ -155,7 +155,9 @@ CMakeFiles/main.dir/src/main.cpp.o: \
  /home/luis/Programming/computacao_grafica/raycasting/src/../include/Matrix4.hpp \
  /home/luis/Programming/computacao_grafica/raycasting/src/../include/Object.hpp \
  /home/luis/Programming/computacao_grafica/raycasting/src/../include/Triangle.hpp \
- /usr/include/c++/15/string /usr/include/c++/15/bits/char_traits.h \
+ /usr/include/c++/15/deque /usr/include/c++/15/bits/stl_deque.h \
+ /usr/include/c++/15/bits/deque.tcc /usr/include/c++/15/string \
+ /usr/include/c++/15/bits/char_traits.h \
  /usr/include/c++/15/bits/localefwd.h \
  /usr/include/c++/15/x86_64-redhat-linux/bits/c++locale.h \
  /usr/include/c++/15/clocale /usr/include/locale.h \

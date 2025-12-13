@@ -16,18 +16,18 @@
 #include <fstream>
 #include <iostream>
 #include <memory>
-#include <omp.h> 
+#include <omp.h>
 #include <vector>
 
 // --- CONSTANTES ---
 const float windowWidth = 2.f, windowHeight = 1.5f;
 // Aumentei um pouco a resolução baseada na sua lógica
-const int numCols = windowWidth *200;  
+const int numCols = windowWidth * 200;
 const int numRows = windowHeight * 200;
 float Dx = windowWidth / numCols;
 float Dy = windowHeight / numRows;
 float viewplaneDistance = 10;
-const int FRAMES_AMOUNT = 30; 
+const int FRAMES_AMOUNT = 1;
 
 Point observerPosition(0, 0, 0, 1);
 
@@ -77,15 +77,14 @@ int main() {
   Mesh *bunnyMesh = meshPtr.get();
 
   // 3. Carregamos o arquivo
-  if (bunnyMesh->loadOBJ("ourladuguadalupe.obj", matCube)) {
+  if (bunnyMesh->loadOBJ("../models/Sol_Gauntlet_GRS_Rally.obj", matCube)) {
     // Configuração inicial
-    Matrix4 setupMatrix =
-        Matrix4::translate(-125.5f, -101.5f, -viewplaneDistance * 3.5f);
-    //        Matrix4::rotateX(-3.14f);
-    bunnyMesh->applyTransform(setupMatrix);
+
+    bunnyMesh->applyTransform(
+        Matrix4::translate(.5f, 1.f, -viewplaneDistance * 2));
     Point p = bunnyMesh->getCentroid();
     bunnyMesh->applyTransform(Matrix4::translate(-p.x, -p.y, -p.z));
-    bunnyMesh->applyTransform(Matrix4::scale(.004f, .004f, .004f));
+    bunnyMesh->applyTransform(Matrix4::scale(10.f, 10.f, 10.f));
     bunnyMesh->applyTransform(Matrix4::translate(p.x, p.y, p.z));
     // 4. Movemos a posse da malha para a lista de objetos
     objects.push_back(std::move(meshPtr));

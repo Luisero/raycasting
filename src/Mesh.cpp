@@ -47,7 +47,6 @@ bool Mesh::intersectAABB(Ray ray, float &tMinOut, float &tMaxOut) {
   return tmax >= tmin && tmax >= 0;
 }
 
-// --- INTERSECT: O porteiro da balada ---
 float Mesh::intersect(Ray ray) {
   float boxTMin, boxTMax;
 
@@ -90,11 +89,10 @@ Color Mesh::shade(const Ray &viewingRay, const Point &P,
 
   for (const auto &tri : triangles) {
     float t = tri->intersect(viewingRay);
-    // Verifica se este é o triângulo que gerou o ponto P (com pequena margem de
-    // erro)
+
     if (t > 0.001f && std::abs(t - distToP) < 0.001f) {
       hitTri = tri.get();
-      break; // Achamos!
+      break;
     }
   }
 
@@ -107,15 +105,15 @@ Color Mesh::shade(const Ray &viewingRay, const Point &P,
   return Color(0, 0, 0); // Erro de segurança
 }
 
-// --- Carregamento e Gerenciamento ---
-
 bool Mesh::loadOBJ(const std::string &filename, Material mat) {
   std::ifstream file(filename);
   if (!file.is_open())
     return false;
 
   triangles.clear(); // Limpa triângulos antigos
-  std::vector<Point> temp_verts;
+  uvs.clear();
+  this->vertices.clear();
+  this->modelVertices.clear();
   std::string line;
 
   while (std::getline(file, line)) {
@@ -126,36 +124,90 @@ bool Mesh::loadOBJ(const std::string &filename, Material mat) {
     if (prefix == "v") {
       float x, y, z;
       ss >> x >> y >> z;
-      temp_verts.push_back(Point(x, y, z, 1.0f));
+      //      temp_verts.push_back(Point(x, y, z, 1.0f));
       this->vertices.push_back(Point(x, y, z, 1.0f));
+      this->modelVertices.push_back(Point(x, y, z, 1.0f));
+    } else if (prefix == "vt") {
+      float u, v;
+      ss >> u >> v;
+      this->uvs.push_back(Vector2(u, v));
     } else if (prefix == "f") {
       std::string s1, s2, s3;
       ss >> s1 >> s2 >> s3;
 
-      auto getIndex = [](const std::string &s) -> int {
-        size_t slash = s.find('/');
-        if (slash == std::string::npos)
-          return std::stoi(s);
-        return std::stoi(s.substr(0, slash));
+      // --- NOVA LÓGICA DE PARSER ---
+      // Função Lambda para extrair (Vértice) E (Textura) da string "v/vt/vn"
+      auto parseToken = [](const std::string &token, int &vIdx, int &vtIdx) {
+        size_t firstSlash = token.find('/');
+        size_t secondSlash = token.find('/', firstSlash + 1);
+
+        // Pega o Vértice (Sempre antes da primeira barra)
+        if (firstSlash == std::string::npos) {
+          vIdx = std::stoi(token); // Caso simples: "f 1"
+          vtIdx = 0;               // Sem textura
+          return;
+        }
+        vIdx = std::stoi(token.substr(0, firstSlash));
+
+        // Pega a Textura (Entre a primeira e a segunda barra)
+        // Formatos possíveis: "1/5" ou "1/5/3"
+        if (firstSlash != std::string::npos) {
+          // Verifica se tem algo entre as barras (para evitar caso "1//3")
+          bool hasTexture = (secondSlash == std::string::npos) ||
+                            (secondSlash > firstSlash + 1);
+
+          if (hasTexture) {
+            // Se não tiver segunda barra, pega até o fim. Se tiver, pega até
+            // ela.
+            size_t len = (secondSlash == std::string::npos)
+                             ? std::string::npos
+                             : (secondSlash - firstSlash - 1);
+            vtIdx = std::stoi(token.substr(firstSlash + 1, len));
+          } else {
+            vtIdx = 0; // Caso "1//3" (Vértice//Normal)
+          }
+        } else {
+          vtIdx = 0;
+        }
       };
 
-      int i1 = getIndex(s1);
-      int i2 = getIndex(s2);
-      int i3 = getIndex(s3);
+      int v1, vt1, v2, vt2, v3, vt3;
 
-      if (i1 > 0 && i2 > 0 && i3 > 0 && i1 <= (int)this->vertices.size() &&
-          i2 <= (int)this->vertices.size() && i3 <= (int)this->vertices.size()) {
-        // CORREÇÃO: Pegue o endereço direto do vetor
-        Point* p1 = &this->vertices[i1 - 1];
-        Point* p2 = &this->vertices[i2 - 1];
-        Point* p3 = &this->vertices[i3 - 1];
-        // Cria e guarda o triângulo DENTRO da mesh
-        triangles.push_back(std::make_unique<Triangle>(p1, p2, p3, mat));
+      // Extrai os índices para os 3 pontos do triângulo
+      parseToken(s1, v1, vt1);
+      parseToken(s2, v2, vt2);
+      parseToken(s3, v3, vt3);
+
+      // Validação de segurança (se os índices existem nos vetores)
+      if (v1 > 0 && v1 <= (int)this->vertices.size() && v2 > 0 &&
+          v2 <= (int)this->vertices.size() && v3 > 0 &&
+          v3 <= (int)this->vertices.size()) {
+
+        // 1. Pega os Vértices (Geometria)
+        Point *p1 = &this->modelVertices[v1 - 1];
+        Point *p2 = &this->modelVertices[v2 - 1];
+        Point *p3 = &this->modelVertices[v3 - 1];
+
+        // 2. Pega as UVs (Textura)
+        // Se vt > 0, busca no vetor. Se for 0, usa padrão (0,0).
+        Vector2 t1 = (vt1 > 0 && vt1 <= this->uvs.size()) ? this->uvs[vt1 - 1]
+                                                          : Vector2(0, 0);
+        Vector2 t2 = (vt2 > 0 && vt2 <= this->uvs.size()) ? this->uvs[vt2 - 1]
+                                                          : Vector2(0, 0);
+        Vector2 t3 = (vt3 > 0 && vt3 <= this->uvs.size()) ? this->uvs[vt3 - 1]
+                                                          : Vector2(0, 0);
+
+        // Cria o triângulo passando TUDO
+        // (Você precisa atualizar o construtor do Triangle para aceitar t1, t2,
+        // t3)
+        triangles.push_back(
+            std::make_unique<Triangle>(p1, p2, p3, &t1, &t2, &t3, mat));
       }
     }
   }
+
   std::cout << "Loaded " << triangles.size() << " triangles.\n";
-  calculateBounds(); // IMPORTANTE: Calcular a caixa assim que carregar!
+  calculateBounds();
   return true;
 }
 

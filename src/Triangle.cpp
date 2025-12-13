@@ -3,10 +3,14 @@
 #include <algorithm>
 #include <cmath>
 
-Triangle::Triangle(Point *a, Point *b, Point *c, Material mat) {
+Triangle::Triangle(Point *a, Point *b, Point *c, Vector2 *t1, Vector2 *t2,
+                   Vector2 *t3, Material mat) {
   this->v0 = a;
   this->v1 = b;
   this->v2 = c;
+  this->t1 = t1;
+  this->t2 = t2;
+  this->t3 = t3;
   this->material = mat;
 
   // --- Pré-calcula a Normal ---
@@ -29,10 +33,10 @@ Vector4 Triangle::getNormal(Point collide) {
 
 // --- Algoritmo Möller–Trumbore ---
 float Triangle::intersect(Ray ray) {
-  if (ray.dir.dot(this->normal) >= 0)
-    return -1;
-  //const float EPSILON = 0.0000001f;
-  const float EPSILON = 0.0f;
+  //  if (ray.dir.dot(this->normal) >= 0)
+  //  return -1;
+  const float EPSILON = 0.0000001f;
+  // const float EPSILON = 0.0f;
 
   Vector4 edge1 = *v1 - *v0;
   Vector4 edge2 = *v2 - *v0;
@@ -84,7 +88,11 @@ Color Triangle::shade(const Ray &viewingRay, const Point &P,
   Material mat = this->material;
   Vector4 N = this->getNormal(P);
   N.normalize(); // N é uma cópia, pode modificar
-
+  if (viewingRay.dir.dot(N) > 0) {
+    N = N * -1.0f;
+    return Color(255, 0, 0); // <--- Descomente para ver os versos em
+    // VERMELHO
+  }
   Color ambientColor = mat.Ka * ambientLightIntensity;
 
   Vector4 lightVector = (lightPosition - P);
@@ -123,6 +131,8 @@ Color Triangle::shade(const Ray &viewingRay, const Point &P,
 
   // Cor final é ambiente + (difusa + especular se não estiver na sombra)
   Color finalColor = ambientColor + diffuseColor + specularColor;
+  finalColor.r += (P.x * 30);
+  finalColor.clamp();
   return finalColor;
 }
 
@@ -143,6 +153,7 @@ void Triangle::applyTransform(const Matrix4 &m) {
   this->normal = edge1.cross(edge2).normalized();
 
   // 3. Recalcula o Centro (para animações genéricas que usem obj->center)
-  this->center = Point((v0->x + v1->x + v2->x) / 3.0f, (v0->y + v1->y + v2->y) / 3.0f,
-                       (v0->z + v1->z + v2->z) / 3.0f, 1.0f);
+  this->center =
+      Point((v0->x + v1->x + v2->x) / 3.0f, (v0->y + v1->y + v2->y) / 3.0f,
+            (v0->z + v1->z + v2->z) / 3.0f, 1.0f);
 }
