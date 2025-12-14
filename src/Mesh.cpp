@@ -4,6 +4,8 @@
 #include <iostream>
 #include <limits>
 #include <sstream>
+#include <unordered_map>
+
 
 Mesh::Mesh() {
   // Inicializa a caixa com valores "invertidos" para forçar atualização
@@ -42,9 +44,10 @@ bool Mesh::intersectAABB(Ray ray, float &tMinOut, float &tMaxOut) {
 
   tMinOut = tmin;
   tMaxOut = tmax;
-
+  bool hit = tmax >= tmin && tmax >= 0;
+  
   // Se tmax < tmin, o raio errou a caixa
-  return tmax >= tmin && tmax >= 0;
+  return hit;
 }
 
 float Mesh::intersect(Ray ray) {
@@ -54,10 +57,10 @@ float Mesh::intersect(Ray ray) {
   if (!intersectAABB(ray, boxTMin, boxTMax)) {
     return -1.0f; // Nem perde tempo olhando os triângulos!
   }
-
+  
   // 2. Se passou pela caixa, testa os triângulos um a um
   float closest_t = -1.0f;
-
+  
   for (const auto &tri : triangles) {
     float t = tri->intersect(ray);
     if (t > 0.001f) {
@@ -104,7 +107,6 @@ Color Mesh::shade(const Ray &viewingRay, const Point &P,
 
   return Color(0, 0, 0); // Erro de segurança
 }
-
 bool Mesh::loadOBJ(const std::string &filename, Material mat) {
   std::ifstream file(filename);
   if (!file.is_open())
@@ -203,7 +205,6 @@ bool Mesh::loadOBJ(const std::string &filename, Material mat) {
           Vector2 *t3 = (vt3 > 0 && vt3 <= (int)this->uvs.size())
                             ? &this->uvs[vt3 - 1]
                             : &defaultUV;
-
           triangles.push_back(
               std::make_unique<Triangle>(p1, p2, p3, t1, t2, t3, mat));
         }
@@ -215,7 +216,6 @@ bool Mesh::loadOBJ(const std::string &filename, Material mat) {
   calculateBounds();
   return true;
 }
-
 void Mesh::calculateBounds() {
   if (triangles.empty())
     return;
@@ -252,10 +252,19 @@ void Mesh::calculateBounds() {
   maxBound = Point(maxX + 0.01f, maxY + 0.01f, maxZ + 0.01f, 1.0f);
 }
 
-void Mesh::applyTransform(const Matrix4 &t) {
-  for (auto &tri : triangles) {
-    tri->applyTransform(t);
-  }
+void Mesh::applyTransform(const Matrix4 &m) {
+for (auto &v : this->vertices) {
+        Vector4 newPos = m * Vector4(v.x, v.y, v.z, 1.0f);
+        v.x = newPos.x;
+        v.y = newPos.y;
+        v.z = newPos.z;
+    }
+
+    // 2. Avisa os triângulos que os pontos mudaram
+    // Eles precisam recalcular a Normal da face
+    for (auto &tri : this->triangles) {
+        tri->recalculateNormal();
+    }
   calculateBounds(); // Recalcula a caixa se a malha se mexer!
 }
 

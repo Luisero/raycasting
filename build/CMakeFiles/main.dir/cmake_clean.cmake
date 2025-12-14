@@ -1,5 +1,4 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/main.dir/link.d"
   "CMakeFiles/main.dir/src/Color.cpp.o"
   "CMakeFiles/main.dir/src/Color.cpp.o.d"
   "CMakeFiles/main.dir/src/Cylinder.cpp.o"
@@ -18,6 +17,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/main.dir/src/Plane.cpp.o.d"
   "CMakeFiles/main.dir/src/Sphere.cpp.o"
   "CMakeFiles/main.dir/src/Sphere.cpp.o.d"
+  "CMakeFiles/main.dir/src/Texture.cpp.o"
+  "CMakeFiles/main.dir/src/Texture.cpp.o.d"
   "CMakeFiles/main.dir/src/Triangle.cpp.o"
   "CMakeFiles/main.dir/src/Triangle.cpp.o.d"
   "CMakeFiles/main.dir/src/Vector.cpp.o"

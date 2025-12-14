@@ -68,12 +68,12 @@ public:
 };
 
 class Vector2 {
-  float x, y;
-
-public:
+  
+  public:
+  float u, v;
   Vector2(float x, float y) {
-    this->x = x;
-    this->y = y;
+    this->u = x;
+    this->v = y;
   }
 };
 #endif // !VECTOR4

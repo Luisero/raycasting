@@ -25,6 +25,7 @@ public:
   // --- NOVO MÉTODO ---
   // Aplica uma matriz de transformação aos vértices do triângulo
   void applyTransform(const Matrix4 &m);
+  void recalculateNormal();
 };
 
 #endif

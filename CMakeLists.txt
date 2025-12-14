@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 project(main)
 add_compile_options(-Ofast)
+set(CMAKE_CXX_FLAGS "-O3 -Wall -Wextra")
 find_package(OpenMP REQUIRED)
 add_executable(main
         src/main.cpp
@@ -16,6 +17,7 @@ add_executable(main
         src/Triangle.cpp
         src/Mesh.cpp
         src/Matrix4.cpp
+        src/Texture.cpp
       )
 target_include_directories(main PRIVATE include)
 

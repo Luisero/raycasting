@@ -14,7 +14,7 @@ public:
   std::vector<std::unique_ptr<Triangle>> triangles;
   std::deque<Point> modelVertices;
   std::deque<Point> vertices;
-  std::vector<Vector2> uvs;
+  std::deque<Vector2> uvs;
   Point minBound;
   Point maxBound;
 
