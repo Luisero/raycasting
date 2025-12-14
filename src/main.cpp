@@ -10,25 +10,26 @@
 #include "../include/Sphere.hpp"
 #include "../include/Triangle.hpp"
 #include "../include/Vector.hpp"
-#include <cstdio>
 #include <algorithm>
 #include <cmath>
+#include <cstdio>
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
 #include <memory>
 #include <omp.h>
+#include <utility>
 #include <vector>
 
 // --- CONSTANTES ---
 const float windowWidth = 2.f, windowHeight = 1.5f;
 // Aumentei um pouco a resolução baseada na sua lógica
-const int numCols = windowWidth * 700;
-const int numRows = windowHeight * 700;
+const int numCols = windowWidth * 200;
+const int numRows = windowHeight * 200;
 float Dx = windowWidth / numCols;
 float Dy = windowHeight / numRows;
 float viewplaneDistance = 10;
-const int FRAMES_AMOUNT =30*6;
+const int FRAMES_AMOUNT = 30;
 
 Point observerPosition(0, 0, 0, 1);
 
@@ -37,16 +38,14 @@ Color lightIntensity(255, 255, 255);
 Color ambientLightIntensity(80, 80, 80);
 
 void convertDisplayToWindow(int display_x, int display_y, float &ndc_x,
-                            float &ndc_y)
-{
+                            float &ndc_y) {
   ndc_x = -windowWidth / 2.0f + Dx / 2.0f + display_x * Dx;
   ndc_y = windowHeight / 2.0f - Dy / 2.0f - display_y * Dy;
 }
 
 // A função getIntersectedObject está em Object.cpp
 
-int main()
-{
+int main() {
   float time = 0;
 
   // --- MATERIAIS ---
@@ -57,13 +56,13 @@ int main()
   Material matRed(Color(10, 5, 2), Color(255, 10, 20), Color(255, 255, 255),
                   128.0f);
   Material matFloor(Color(40, 90, 50), Color(35, 196, 12), Color(255, 255, 255),
-                    255.f);
+                    25555.f);
   Material matWall(Color(40, 40, 50), Color(35, 100, 196), Color(255, 255, 255),
                    99999.f);
   Material matMirror(Color(0, 0, 0), Color(0, 0, 0), Color(0, 0, 0), 128.f);
 
   Texture texturePenguim;
-  texturePenguim.load("../models/Cat_diffuse.jpg");
+  texturePenguim.load("../models/Escort MK2/escort_mk2_tex.jpg.jpg");
   Material matPenguim(Color(93, 99, 107),   // Ka (Ambiente: marrom escuro)
                       Color(255, 0, 255),   // Kd (Difuso: SaddleBrown)
                       Color(255, 255, 255), // Ks (Branco)
@@ -80,37 +79,48 @@ int main()
   // --- CARREGAMENTO DA MALHA (Lógica AABB) ---
   // 1. Criamos o ponteiro inteligente
   auto meshPtr = std::make_unique<Mesh>();
+  auto meshPtr2 = std::make_unique<Mesh>();
+
   // 2. Guardamos uma referência crua (raw pointer) para poder animar depois
   Mesh *bunnyMesh = meshPtr.get();
-
+  Mesh *terrainMesh = meshPtr2.get();
   // 3. Carregamos o arquivo
-  if (bunnyMesh->loadOBJ("../models/cat.obj", matPenguim))
-  {
+  if (bunnyMesh->loadOBJ("../models/Escort MK2/EscortMK2.obj", matPenguim)) {
     // Configuração inicial
 
     bunnyMesh->applyTransform(
-        Matrix4::translate(0, -6.6f, -viewplaneDistance * 10));
+        Matrix4::translate(0, -44.5f, -viewplaneDistance / 4.3));
     Point p = bunnyMesh->getCentroid();
     bunnyMesh->applyTransform(Matrix4::translate(-p.x, -p.y, -p.z));
-    bunnyMesh->applyTransform(Matrix4::scale(.1f, .1f, .1f));
-    bunnyMesh->applyTransform(Matrix4::rotateX(-3.14f/2.f));
-    //bunnyMesh->applyTransform(Matrix4::rotateY(-3.14f / 2.f));
+    bunnyMesh->applyTransform(Matrix4::scale(.001f, .001f, .001f));
+    bunnyMesh->applyTransform(Matrix4::rotateY(-3.14f / 2.f));
+    bunnyMesh->applyTransform(Matrix4::rotateX(3.14f / 4.f));
     bunnyMesh->applyTransform(Matrix4::translate(p.x, p.y, p.z));
     // 4. Movemos a posse da malha para a lista de objetos
     objects.push_back(std::move(meshPtr));
-  }
-  else
-  {
+  } else {
     std::cerr << "Erro: bunny.obj nao encontrado!\n";
   }
-
+  Texture terrainTexture;
+  terrainTexture.load("../models/ground_grass_3264_4062_Small.jpg");
+  matFloor.texture = &terrainTexture;
+  if (terrainMesh->loadOBJ("../models/mount.blend1.obj", matFloor)) {
+    terrainMesh->applyTransform(
+        Matrix4::translate(-1, -.6f, -viewplaneDistance / 2));
+    Point c = terrainMesh->getCentroid();
+    terrainMesh->applyTransform(Matrix4::translate(-c.x, -c.y, -c.z));
+    terrainMesh->applyTransform(Matrix4::scale(1.f, 1.f, .1f));
+    terrainMesh->applyTransform(Matrix4::translate(c.x, c.y, c.z));
+    objects.push_back(std::move(meshPtr2));
+  }
   // --- OUTROS OBJETOS ---
   //  objects.push_back(std::make_unique<MirrorSphere>(
   //    Point(-0.5f, 0.f, -viewplaneDistance, 1), sphereRadius, matRed));
 
   Point floorPoint(0.f, -sphereRadius * 2.f, 0.f, 1.f);
   Vector4 floorNormal(0.f, 1.f, 0.f, 0.f);
-  objects.push_back(std::make_unique<Plane>(floorPoint, floorNormal, matFloor));
+  //  objects.push_back(std::make_unique<Plane>(floorPoint, floorNormal,
+  //  matFloor));
 
   Point wallPoint(0.f, 0.f, -viewplaneDistance * 2, 1.f);
   Vector4 wallNormal(0, 0, 1, 0);
@@ -118,8 +128,7 @@ int main()
   //  matWall));
 
   // --- LOOP PRINCIPAL ---
-  for (int i = 0; i < FRAMES_AMOUNT; i++)
-  {
+  for (int i = 0; i < FRAMES_AMOUNT; i++) {
     std::cout << "Rendering frame " << i << " / " << FRAMES_AMOUNT << "...\n";
     time += 0.1;
 
@@ -128,22 +137,17 @@ int main()
     frametitle.append(".ppm");
     std::ofstream image(frametitle);
 
-    if (image.is_open())
-    {
-      image << "P3\n"
-            << numCols << " " << numRows << "\n"
-            << 255 << "\n";
+    if (image.is_open()) {
+      image << "P3\n" << numCols << " " << numRows << "\n" << 255 << "\n";
 
       // --- 1. ANIMAÇÃO ---
 
       // Objetos simples
-      for (const auto &obj : objects)
-      {
+      for (const auto &obj : objects) {
         if (!obj)
           continue;
         if (MirrorSphere *mirrorSphere =
-                dynamic_cast<MirrorSphere *>(obj.get()))
-        {
+                dynamic_cast<MirrorSphere *>(obj.get())) {
           // Exemplo: MirrorSphere->center.y += sin(time + j) / 150;
           mirrorSphere->center.z += sin(time) / 10;
         }
@@ -151,17 +155,22 @@ int main()
       }
 
       // Animação da Malha (usando o ponteiro que guardamos)
-      if (bunnyMesh)
-      {
+      if (bunnyMesh) {
         Point center = bunnyMesh->getCentroid();
 
         // Pivot: Origem -> Gira -> Volta
         Matrix4 toOrigin = Matrix4::translate(-center.x, -center.y, -center.z);
-        Matrix4 rotation = Matrix4::rotateY(0.05f); // Velocidade da rotação
+        Matrix4 rotation = Matrix4::rotateX(0.05f); // Velocidade da
+                                                    //      rotação
         Matrix4 fromOrigin = Matrix4::translate(center.x, center.y, center.z);
 
         Matrix4 pivotRotation = fromOrigin * rotation * toOrigin;
         bunnyMesh->applyTransform(pivotRotation);
+        bunnyMesh->applyTransform(Matrix4::translate(0, -0.01f, 0.01f));
+      }
+      if (terrainMesh) {
+        //        terrainMesh->applyTransform(Matrix4::translate(0, -.002f,
+        //        -.05f));
       }
 
       // Luz
@@ -173,10 +182,8 @@ int main()
 
 // O OpenMP divide este loop entre os núcleos da CPU
 #pragma omp parallel for schedule(dynamic)
-      for (int l = 0; l < numRows; l++)
-      {
-        for (int c = 0; c < numCols; c++)
-        {
+      for (int l = 0; l < numRows; l++) {
+        for (int c = 0; c < numCols; c++) {
           float x, y;
           convertDisplayToWindow(c, l, x, y);
           Vector4 d(x - observerPosition.x, y - observerPosition.y,
@@ -188,14 +195,11 @@ int main()
           // getIntersectedObject usa AABB se for Mesh, então é rápido!
           Object *closestObject = getIntersectedObject(ray, objects, closest_t);
 
-          if (closestObject == nullptr)
-          {
+          if (closestObject == nullptr) {
             // CORREÇÃO: Escreve no buffer, NÃO no arquivo (evita conflito de
             // threads)
             frameBuffer[l * numCols + c] = Color(10, 50, 200);
-          }
-          else
-          {
+          } else {
             Point P = ray.origin + (ray.dir * closest_t);
 
             Color finalColor = closestObject->shade(
@@ -212,10 +216,8 @@ int main()
 
       // --- 3. ESCRITA NO ARQUIVO (SERIAL) ---
       // Agora que o buffer está pronto, escrevemos tudo de uma vez
-      for (int l = 0; l < numRows; l++)
-      {
-        for (int c = 0; c < numCols; c++)
-        {
+      for (int l = 0; l < numRows; l++) {
+        for (int c = 0; c < numCols; c++) {
           Color &cor = frameBuffer[l * numCols + c];
           image << cor.r << " " << cor.g << " " << cor.b << " ";
         }
@@ -228,23 +230,21 @@ int main()
       // Monta o comando do FFmpeg:
       // -y: Sobrescreve se já existir
       // -i: Arquivo de entrada (PPM)
-      // > /dev/null 2>&1: Esconde o "spam" de logs do ffmpeg no terminal (opcional)
-      std::string command = "ffmpeg -y -i " + frametitle + " " + pngName + " > /dev/null 2>&1";
+      // > /dev/null 2>&1: Esconde o "spam" de logs do ffmpeg no terminal
+      // (opcional)
+      std::string command =
+          "ffmpeg -y -i " + frametitle + " " + pngName + " > /dev/null 2>&1";
 
       // Executa o comando no terminal
       int result = system(command.c_str());
 
       // Se a conversão deu certo, DELETA o PPM gigante original
-      if (result == 0)
-      {
+      if (result == 0) {
         remove(frametitle.c_str()); // Deleta o .ppm
         std::cout << "Convertido para " << pngName << " e PPM deletado.\n";
-      }
-      else
-      {
+      } else {
         std::cerr << "Erro ao converter frame " << i << "\n";
       }
-      
     }
   }
   std::cout << "Concluido!\n";
